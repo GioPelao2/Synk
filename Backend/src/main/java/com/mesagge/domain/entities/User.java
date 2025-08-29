@@ -21,4 +21,9 @@ public class User {
     public boolean canReceiveMessage(UserId senderId) {
         //TODO
     }
+
+    public UserStatus getUserStatus(){
+        return status;
+
+    }
 }
