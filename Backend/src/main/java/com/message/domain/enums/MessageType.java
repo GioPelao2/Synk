@@ -1,6 +1,6 @@
 package com.mesagge.domain.enums;
 
-enum MessageType {
+public enum MessageType {
     TEXT,
     IMAGE,
     FILE,

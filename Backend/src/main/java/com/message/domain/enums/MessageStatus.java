@@ -1,6 +1,6 @@
 package com.mesagge.domain.enums;
 
-enum MessageStatus {
+public enum MessageStatus {
     SENT,
     DELIVERED,
     READ;
