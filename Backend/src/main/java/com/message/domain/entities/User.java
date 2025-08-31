@@ -40,6 +40,18 @@ public class User {
         return this.status == UserStatus.ONLINE;
     }
 
+    public boolean isOnline() {
+        return this.status == UserStatus.ONLINE;
+    }
+
+    public UserId getId() {
+        return id;
+    }
+
+    public UserStatus getStatus() {
+        return status;
+    }
+
     @Override
     public boolean equals(Object object) {
         if (this == object) return true;

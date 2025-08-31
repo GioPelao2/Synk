@@ -30,6 +30,21 @@ public class Message {
     }
 
     public void validate() {
-        //TODO: validate
+        if (this.messageId == null) {
+            throw new IllegalArgumentException("MessageId cannot be null");
+        }
+        if (this.senderId == null) {
+            throw new IllegalArgumentException("SenderId cannot be null");
+        }
+        if (this.receiverId == null) {
+            throw new IllegalArgumentException("ReceiverId cannot be null");
+        }
+        if (this.content == null) {
+            throw new IllegalArgumentException("Content cannot be null");
+        }
+    }
+
+    public boolean isFromUser(UserId userId) {
+        return this.senderId.equals(userId);
     }
 }

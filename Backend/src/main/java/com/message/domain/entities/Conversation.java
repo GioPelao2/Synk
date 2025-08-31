@@ -27,4 +27,8 @@ public class Conversation {
     public Message getLastMessage() {
         return messages.get(messages.size() - 1);
     }
+
+    public boolean hasParticipants(UserId userId) {
+        return this.participants.contains(userId);
+    }
 }
