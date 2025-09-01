@@ -48,6 +48,6 @@ public class UpdateUserStatus {
             default:
                 throw new IllegalArgumentException("Unsupported user status: " + newStatus);
         }
-        userRepository.save(user);
+        userRepository.saveUser(user);
     }
 }

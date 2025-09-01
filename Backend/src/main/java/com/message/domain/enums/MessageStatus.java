@@ -1,5 +1,4 @@
-package com.mesagge.domain.enums;
-
+package com.message.domain.enums;
 public enum MessageStatus {
     SENT,
     DELIVERED,

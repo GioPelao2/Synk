@@ -8,7 +8,7 @@ import com.message.domain.valueobjects.UserId;
 
 public interface UserRepository {
 
-    public User save(User user);
+    public User saveUser(User user);
     public Optional<User> findById(UserId id);
     public List<User> findOnlineUsers();
 }

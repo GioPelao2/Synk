@@ -11,7 +11,7 @@ public class User {
     private String email;
     private UserStatus status;
     private LocalDateTime lastSeen;
-    
+
     public User(UserId id, String username, String email) {
         this.id = Objects.requireNonNull(id, "UserId cannot be null");
         this.username = Objects.requireNonNull(username, "Username cannot be null");
@@ -29,12 +29,12 @@ public class User {
         this.status = UserStatus.OFFLINE;
         this.lastSeen = LocalDateTime.now();
     }
-    
+
     public void goAway() {
         this.status = UserStatus.AWAY;
         this.lastSeen = LocalDateTime.now();
     }
-    
+
     public void changeStatus(UserStatus newStatus) {
         Objects.requireNonNull(newStatus, "UserStatus cannot be null");
         this.status = newStatus;
@@ -53,35 +53,51 @@ public class User {
     public boolean isOnline() {
         return this.status == UserStatus.ONLINE;
     }
-    
+
     public boolean isAway() {
         return this.status == UserStatus.AWAY;
     }
-    
+
     public boolean isOffline() {
         return this.status == UserStatus.OFFLINE;
     }
 
     // Getters
-    public UserId getId() { return id; }
-    public String getUsername() { return username; }
-    public String getEmail() { return email; }
-    public UserStatus getStatus() { return status; }
-    public LocalDateTime getLastSeen() { return lastSeen; }
+    public UserId getId() {
+        return id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public UserStatus getStatus() {
+        return status;
+    }
+
+    public LocalDateTime getLastSeen() {
+        return lastSeen;
+    }
 
     @Override
     public boolean equals(Object object) {
-        if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
+        if (this == object)
+            return true;
+        if (object == null || getClass() != object.getClass())
+            return false;
         User user = (User) object;
         return Objects.equals(id, user.id);
     }
-    
+
     @Override
     public int hashCode() {
         return Objects.hash(id);
     }
-    
+
     @Override
     public String toString() {
         return "User{" +

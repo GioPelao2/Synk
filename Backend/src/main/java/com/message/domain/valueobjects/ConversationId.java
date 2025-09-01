@@ -1,4 +1,4 @@
-package com.mesagge.domain.valueobjects;
+package com.message.domain.valueobjects;
 
 import java.util.Objects;
 

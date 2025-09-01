@@ -3,35 +3,36 @@ package com.message.infrastructure.persistance;
 import java.util.List;
 import java.util.Optional;
 
-import com.message.domain.entities.User;
-import com.message.domain.repositories.UserRepository;
+import com.message.domain.entities.Message;
+import com.message.domain.repositories.MessageRepository;
+import com.message.domain.valueobjects.MessageId;
 import com.message.domain.valueobjects.UserId;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class JpaUserRepository implements  UserRepository, CrudRepository {
+public class JpaMessageRepository implements MessageRepository, CrudRepository{
     
     @Override
-    public List<User> findOnlineUsers() {
+    public Message save(Message message) {
         // TODO Auto-generated method stub
         return null;
     }
-    
+
     @Override
-    public Optional<User> findById(UserId id) {
+    public Optional<Message> findById(MessageId id) {
         // TODO Auto-generated method stub
         return Optional.empty();
     }
 
     @Override
-    public User saveUser(User user) {
+    public List<Message> findConversationHistory(UserId id1, UserId id2) {
         // TODO Auto-generated method stub
         return null;
     }
 
-    @Override
+     @Override
     public Iterable saveAll(Iterable entities) {
         // TODO Auto-generated method stub
         return null;
@@ -104,5 +105,5 @@ public class JpaUserRepository implements  UserRepository, CrudRepository {
     }
 
 
-    
+
 }
