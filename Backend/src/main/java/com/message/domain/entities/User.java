@@ -18,7 +18,7 @@ public class User {
         this.id = Objects.requireNonNull(id,"UserId cannot be null");
         this.username = Objects.requireNonNull(username, "Username cannot be null");
         this.email = Objects.requireNonNull(email, "Email cannot be null");
-        this.status = status.OFFLINE;
+        this.status = UserStatus.OFFLINE;
     }
 
 
