@@ -1,8 +1,6 @@
 package com.message.domain.entities;
 
 import com.message.domain.valueobjects.UserId;
-
-
 import com.message.domain.enums.UserStatus;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -15,42 +13,61 @@ public class User {
     private LocalDateTime lastSeen;
     
     public User(UserId id, String username, String email) {
-        this.id = Objects.requireNonNull(id,"UserId cannot be null");
+        this.id = Objects.requireNonNull(id, "UserId cannot be null");
         this.username = Objects.requireNonNull(username, "Username cannot be null");
         this.email = Objects.requireNonNull(email, "Email cannot be null");
         this.status = UserStatus.OFFLINE;
+        this.lastSeen = LocalDateTime.now();
     }
-
 
     public void goOnline() {
         this.status = UserStatus.ONLINE;
         this.lastSeen = LocalDateTime.now();
     }
 
-    public void goOfline() {
+    public void goOffline() {
         this.status = UserStatus.OFFLINE;
+        this.lastSeen = LocalDateTime.now();
+    }
+    
+    public void goAway() {
+        this.status = UserStatus.AWAY;
+        this.lastSeen = LocalDateTime.now();
+    }
+    
+    public void changeStatus(UserStatus newStatus) {
+        Objects.requireNonNull(newStatus, "UserStatus cannot be null");
+        this.status = newStatus;
         this.lastSeen = LocalDateTime.now();
     }
 
     public boolean canReceiveMessage(UserId senderId) {
-        //No se puede recibir mensajes de uno mismo
+        // No se puede recibir mensajes de uno mismo
         if (this.id.equals(senderId)) {
             return false;
         }
-        return this.status == UserStatus.ONLINE;
+        // Solo usuarios ONLINE y AWAY pueden recibir mensajes inmediatamente
+        return this.status == UserStatus.ONLINE || this.status == UserStatus.AWAY;
     }
 
     public boolean isOnline() {
         return this.status == UserStatus.ONLINE;
     }
-
-    public UserId getId() {
-        return id;
+    
+    public boolean isAway() {
+        return this.status == UserStatus.AWAY;
+    }
+    
+    public boolean isOffline() {
+        return this.status == UserStatus.OFFLINE;
     }
 
-    public UserStatus getStatus() {
-        return status;
-    }
+    // Getters
+    public UserId getId() { return id; }
+    public String getUsername() { return username; }
+    public String getEmail() { return email; }
+    public UserStatus getStatus() { return status; }
+    public LocalDateTime getLastSeen() { return lastSeen; }
 
     @Override
     public boolean equals(Object object) {
