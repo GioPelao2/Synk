@@ -6,11 +6,11 @@
 }
 
 .userMessage {
-    background-color: #dcf8c6;
+    background-color:cornflowerblue;
     align-self: flex-end;
 }
 
 .otherMessage {
-    background-color: #e5e5ea;
+    background-color: #2c2c31;
     align-self: flex-start;
 }

@@ -1,7 +1,16 @@
 import styles from "@/styles/Message.module.css";
 
-export default function Message() {
+interface MessageProps {
+    text: string;
+    sender: "user" | "other";
+}
+
+export default function Message({ text, sender}: MessageProps) {
+    const messageClass = sender === "user" ? styles.userMessage : styles.otherMessage;
+   
     return (
-      <div className={styles.messageContainer}></div>
+        <div className={`${styles.messageBubble} ${messageClass}`}>
+            <p>{text}</p>
+        </div>
     );
 }
