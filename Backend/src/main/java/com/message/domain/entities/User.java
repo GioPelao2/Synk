@@ -12,12 +12,30 @@ public class User {
     private UserStatus status;
     private LocalDateTime lastSeen;
 
-    public User(UserId id, String username, String email) {
+
+    //Constructor para usuarios existentes
+    public User(UserId id, String username, String email, UserStatus status, LocalDateTime lastSeen) {
         this.id = Objects.requireNonNull(id, "UserId cannot be null");
         this.username = Objects.requireNonNull(username, "Username cannot be null");
         this.email = Objects.requireNonNull(email, "Email cannot be null");
         this.status = UserStatus.OFFLINE;
         this.lastSeen = LocalDateTime.now();
+    }
+
+    //Constructor para usuarios nuevos
+    public User(String username, String email) {
+        this.id = UserId.newId();
+        this.username = Objects.requireNonNull(username, "Username cannot be null");
+        this.email = Objects.requireNonNull(email, "Email cannot be null");
+        this.status = UserStatus.OFFLINE;
+        this.lastSeen = LocalDateTime.now();
+    }
+
+    public User withId(UserId newId) {
+        if (!this.id.isTemporary()) {
+            throw new IllegalStateException("User already has an ID assigned");
+        }
+        return new User(newId, this.username, this.email, this.status, this.lastSeen);
     }
 
     public void goOnline() {
@@ -62,26 +80,12 @@ public class User {
         return this.status == UserStatus.OFFLINE;
     }
 
-    // Getters
-    public UserId getId() {
-        return id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public UserStatus getStatus() {
-        return status;
-    }
-
-    public LocalDateTime getLastSeen() {
-        return lastSeen;
-    }
+    //Getters
+    public UserId getId() {return id;}
+    public String getUsername() {return username;}
+    public String getEmail() {return email;}
+    public UserStatus getStatus() {return status;}
+    public LocalDateTime getLastSeen() {return lastSeen;}
 
     @Override
     public boolean equals(Object object) {
