@@ -11,6 +11,7 @@
 .messageInput {
     flex: 1;
     min-height: 45px;
+    color: black;
     background-color: rgb(255, 255, 255);
     border: 1px solid;
     border-radius: 20px;
