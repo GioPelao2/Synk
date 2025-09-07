@@ -6,7 +6,7 @@ export default function MessageInput() {
         <input
             type="text"
             placeholder="Escribe un mensaje..."
-            className={styles.MessageInput}
+            className={styles.messageInput}
         />
         <button className={styles.sendButton}>
             Enviar
