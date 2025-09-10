@@ -1,0 +1,12 @@
+.header{
+    display: flex;
+    align-items: start;
+    padding: 10px 20px;
+    background-color: aquamarine;
+    border-bottom: 1px solid red;
+    height: 60px;
+}
+
+.logoContainer{
+
+}

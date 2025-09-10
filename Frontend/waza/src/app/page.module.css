@@ -1,20 +1,26 @@
-.container {
+.mainCintainer{
+    display: flex;
+    flex-direction: column;
+    height: 1;
+}
+
+.Columncontainer {
     display : flex;
     height: 100vh;
     width : 100%;
 }
 
-.container > :nth-child(1) {
+.Columncontainer > :nth-child(1) {
     flex: 0 0 60px;
     background-color:cornflowerblue;
 }
 
-.container > :nth-child(2) {
+.Columncontainer > :nth-child(2) {
     flex: 0 0 750px;
     background-color:lightgray;
 }
 
-.container > :nth-child(3) {
+.Columncontainer > :nth-child(3) {
     flex: 1;
     background-color:aliceblue;
 }
