@@ -12,7 +12,7 @@
 
 .Columncontainer > :nth-child(1) {
     flex: 0 0 60px;
-    background-color:cornflowerblue;
+    background-color: rgb(74, 1, 190);;;
 }
 
 .Columncontainer > :nth-child(2) {
