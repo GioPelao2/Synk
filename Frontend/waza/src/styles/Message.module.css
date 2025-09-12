@@ -3,17 +3,20 @@
     padding: 10px;
     border-radius: 18px;
     margin-bottom: 10px;
+    height: 60px;
+    width: 90%;
 }
 
 .userMessage {
-    background-color: rgb(74, 1, 190);
+    background-color: rgb(255, 255, 255);
+    border-bottom: 5px solid rgb(74, 1, 190);
+    border-left: 4px solid rgb(74, 1, 190);
+    color: rgb(74, 1, 190);
+
     align-self: flex-end;
 }
 
 .otherMessage {
-    background-color: #ffffff;
-    border-bottom: 5px solid rgb(74, 1, 190);
-    border-right: 4px solid rgb(74, 1, 190);
-    color: rgb(74, 1, 190);
+    background-color: rgb(74, 1, 190);
     align-self: flex-start;
 }
