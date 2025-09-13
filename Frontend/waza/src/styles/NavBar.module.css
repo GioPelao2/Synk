@@ -3,21 +3,22 @@
     flex-direction: column;
     height: 100%;
     width: 100%;
+    border-left: #34344A;
+    border-right: #34344A;
 }
 
 .topSection {
     display: flex;
     justify-content: center;
     padding: 10px;
-    background-color: rgb(163, 163, 163);
-    border-bottom: 1px solid rgb(74, 1, 190);
+    background-color: #1E1E2F;
 }
 
 .groupChatsButton {
     display: flex;
     align-items: center;
-    background-color: white;
-    color: rgb(74, 1, 190);
+    background-color: transparent;
+    color: #9999AC;
     border: 1px solid rgb(74, 1, 190);
     font-weight: bold;
     font-size: 16px;
@@ -41,7 +42,7 @@
 
 .searchInput {
     flex: 1;
-    background-color: aliceblue;
+    background-color:#34344A;
     color:black;
     padding: 8px;
     border: 1px solid rgb(74, 1, 190);

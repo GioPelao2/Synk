@@ -12,15 +12,15 @@
 
 .Columncontainer > :nth-child(1) {
     flex: 0 0 60px;
-    background-color: rgb(74, 1, 190);;;
+    background-color:#34344A;
 }
 
 .Columncontainer > :nth-child(2) {
     flex: 0 0 750px;
-    background-color:lightgray;
+    background-color:#1E1E2F;
 }
 
 .Columncontainer > :nth-child(3) {
     flex: 1;
-    background-color:rgb(252, 252, 252);
+    background-color:#28283C;
 }

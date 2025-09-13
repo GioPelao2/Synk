@@ -6,8 +6,8 @@ export default function ChatWindow () {
     return (
         <div className={styles.ChatWindowContainer}>
             <div className={styles.messageList}>
-                <Message text="increible" sender="other" />
-                <Message text="maxi mili ANO" sender="user" />
+                <Message text="hola hrno" sender="other" />
+                <Message text="como estai brother?" sender="user" />
             
             </div>
             <MessageInput />
