@@ -1,6 +1,6 @@
 import styles from "@/styles/NavBar.module.css"
-import { FcSearch } from "react-icons/fc";
-import { MdFavoriteBorder } from "react-icons/md";
+import { IoSearch } from "react-icons/io5";
+import { MdOutlineFavorite } from "react-icons/md";
 
 export default function NavBar () {
     return (
@@ -17,10 +17,10 @@ export default function NavBar () {
                     className={styles.searchInput}
                 />
                 <button className={styles.searchButton}>
-                    <FcSearch />   
+                    <IoSearch />
                 </button>
                 <button className={styles.favoriteButton}>
-                    <MdFavoriteBorder />
+                    <MdOutlineFavorite />
                 </button>
             </div>
 
