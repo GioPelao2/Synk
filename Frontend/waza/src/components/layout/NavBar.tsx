@@ -1,6 +1,7 @@
 import styles from "@/styles/NavBar.module.css"
-import { IoSearch } from "react-icons/io5";
+import { FcSearch } from "react-icons/fc";
 import { MdOutlineFavorite } from "react-icons/md";
+import ChatBlock from "@/components/chat/ChatBlock";
 
 export default function NavBar () {
     return (
@@ -17,7 +18,7 @@ export default function NavBar () {
                     className={styles.searchInput}
                 />
                 <button className={styles.searchButton}>
-                    <IoSearch />
+                    <FcSearch  />
                 </button>
                 <button className={styles.favoriteButton}>
                     <MdOutlineFavorite />
@@ -25,7 +26,14 @@ export default function NavBar () {
             </div>
 
             <div className={styles.chatListSection}>
-                <p>chat chat chat chat chat chat y mas chats...</p>
+                <ChatBlock
+                    avatarSrc="/images/avatar1.jpg"
+                    name="JuaKo"
+                    lastMessage= "pero hermano ksaldj"
+                    time="9:45 AM"
+                    unreadCount={2}
+                    onlineStatus="offline"
+                />
             </div>
         </div>
     );

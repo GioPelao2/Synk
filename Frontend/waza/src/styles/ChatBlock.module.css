@@ -1,0 +1,60 @@
+.container{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid ;
+    transition: background-color 0.2s ease;
+    position: relative;
+}
+
+.container:hover{
+    background-color: rgb(74, 1, 190);
+}
+
+.statusBar{
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 80%;
+    border-radius: 4px;
+}
+
+.online{
+
+}
+
+.offline{
+
+}
+
+.avatar{
+
+}
+
+.info{
+
+}
+
+.name{
+
+}
+
+.lastmessage{
+
+}
+
+.details{
+
+}
+
+.time{
+
+}
+
+.unreadCount{
+
+}
+
