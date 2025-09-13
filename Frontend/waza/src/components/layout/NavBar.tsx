@@ -32,7 +32,7 @@ export default function NavBar () {
                     lastMessage= "pero hermano ksaldj"
                     time="9:45 AM"
                     unreadCount={2}
-                    onlineStatus="offline"
+                    onlineStatus="online"
                 />
             </div>
         </div>

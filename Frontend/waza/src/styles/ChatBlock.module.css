@@ -23,38 +23,57 @@
 }
 
 .online{
-
+    background-color: lawngreen;
 }
 
 .offline{
-
+    background-color: yellow;
 }
 
 .avatar{
-
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 15px;
 }
 
 .info{
-
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .name{
-
+    font-weight: bold;
+    font-size: 20px;
 }
 
 .lastmessage{
-
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .details{
-
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-size: 12px;
 }
 
 .time{
-
+    margin-bottom: 5px;
 }
 
 .unreadCount{
-
+    background-color: #007bff;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
 }
 
