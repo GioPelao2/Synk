@@ -1,19 +1,19 @@
-package com.message.applicationservices;
+package com.message.application.usecase;
 
 import com.message.domain.entities.Message;
 import com.message.domain.entities.User;
 import com.message.domain.repositories.MessageRepository;
 import com.message.domain.repositories.UserRepository;
 import com.message.domain.valueobjects.UserId;
-import com.message.domainservices.MessageDomainService;
+import com.message.domain.service.MessageDomainService;
 
 public class SendMessage {
     private MessageRepository messageRepository;
     private UserRepository userRepository;
     private MessageDomainService messageDomainService;
 
-    public SendMessage(MessageRepository messageRepository, 
-                      UserRepository userRepository, 
+    public SendMessage(MessageRepository messageRepository,
+                      UserRepository userRepository,
                       MessageDomainService messageDomainService) {
         this.messageRepository = messageRepository;
         this.userRepository = userRepository;
@@ -31,10 +31,10 @@ public class SendMessage {
         if (messageDomainService.canSendMessage(sender, receiver)) {
             // 3. Validar el contenido antes de crear el mensaje
             messageDomainService.validateMessage(content);
-            
+
             // 4. Crear el mensaje sin ID (el repository lo generará)
             Message message = new Message(senderId, receiverId, content);
-            
+
             // 5. Guardar el mensaje (el repository asigna el ID automáticamente)
             messageRepository.save(message);
         } else {
