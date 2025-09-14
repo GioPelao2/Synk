@@ -1,4 +1,4 @@
-package com.message.applicationservices;
+package com.message.application.usecase;
 
 import java.util.List;
 

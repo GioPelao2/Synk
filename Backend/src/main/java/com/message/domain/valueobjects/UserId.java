@@ -19,7 +19,19 @@ public final class UserId {
     public Long value() {
         return value;
     }
-    
+
+    public static UserId newId() {
+        return new UserId(-1L); //TEMPORAL se le asigna EN base a la DB
+    }
+
+    public Long getValue() {
+        return value;
+    }
+
+    public boolean isTemporary(){
+        return value <= 0;
+    }
+
     @Override
     public boolean equals(Object object) {
         if (this==object) return true;
