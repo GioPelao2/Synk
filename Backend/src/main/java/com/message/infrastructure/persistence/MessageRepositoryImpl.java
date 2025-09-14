@@ -6,6 +6,7 @@ import com.message.domain.repositories.MessageRepository;
 import com.message.domain.entities.Message;
 import com.message.domain.valueobjects.MessageId;
 import com.message.domain.valueobjects.UserId;
+import com.message.presentation.mapper.MessageMapper;
 
 import java.util.List;
 import java.util.Optional;
