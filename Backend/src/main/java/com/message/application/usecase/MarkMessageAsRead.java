@@ -1,4 +1,4 @@
-package com.message.applicationservices;
+package com.message.application.usecase;
 
 import com.message.domain.entities.Message;
 import com.message.domain.repositories.MessageRepository;
@@ -17,7 +17,7 @@ public class MarkMessageAsRead {
             .orElseThrow(() -> new IllegalArgumentException("Message not found with id: " + messageId));
 
         message.markAsRead();
-        
+
         messageRepository.save(message);
     }
 }

@@ -12,6 +12,10 @@ public interface MessageRepository {
     public Message save(Message message);
 
     public Optional<Message> findById(MessageId id);
-
+ /**
+     * Obtiene el historial de mensajes entre dos usuarios
+     * FIXME: Esto puede ser lento para conversaciones muy largas
+     * TODO: Implementar paginación y ordenamiento por fecha
+     */
     public List<Message> findConversationHistory(UserId id1, UserId id2);
 }

@@ -16,16 +16,24 @@ public final class ConversationId {
         return new ConversationId(value);
     }
 
+    public static ConversationId newId() {
+        return new ConversationId(-1L); // TEMPORAL se le asigna EN base a la DB
+    }
+
     public Long value() {
         return value;
     }
-    
+
+    public boolean isTemporary() {
+        return value <= 0;
+    }
+
     @Override
     public boolean equals(Object object) {
-        if (this==object) return true;
-        if (object==null || getClass() != object.getClass()) return false;
-        ConversationId conversationId = (ConversationId) object;
-        return Objects.equals(value, conversationId.value);
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        ConversationId that = (ConversationId) object;
+        return Objects.equals(value, that.value);
     }
 
     @Override
@@ -35,10 +43,6 @@ public final class ConversationId {
 
     @Override
     public String toString() {
-        return "UserId{" + value + "}";
+        return "ConversationId{" + value + "}";
     }
-
-
-    
-    
 }

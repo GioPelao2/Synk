@@ -1,4 +1,4 @@
-package com.message.domainservices;
+package com.message.domain.service;
 
 import com.message.domain.entities.User;
 import com.message.domain.valueobjects.UserId;
@@ -16,14 +16,14 @@ public class UserDomainService {
         if (senderId.equals(receiverId)) {
             return false;
         }
-        
+
         User sender = userRepository.findById(senderId).orElse(null);
         User receiver = userRepository.findById(receiverId).orElse(null);
-        
+
         if (sender == null || receiver == null) {
             return false;
         }
-        
+
         return receiver.canReceiveMessage(senderId);
     }
 

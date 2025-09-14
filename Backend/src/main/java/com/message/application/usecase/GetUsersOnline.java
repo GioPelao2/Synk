@@ -1,4 +1,4 @@
-package com.message.applicationservices;
+package com.message.application.usecase;
 
 import com.message.domain.entities.User;
 import com.message.domain.repositories.UserRepository;
