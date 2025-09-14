@@ -1,6 +1,6 @@
-import Message from "@/components/chat/Message"
+import Message from "@/components/chat/Message";
 import MessageInput from "@/components/chat/MessageInput";
-import styles from "@/styles/ChatWindow.module.css"
+import styles from "@/styles/ChatWindow.module.css";
 
 export default function ChatWindow() {
     return (

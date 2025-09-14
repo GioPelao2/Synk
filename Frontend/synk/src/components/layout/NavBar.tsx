@@ -1,6 +1,4 @@
 import styles from "@/styles/NavBar.module.css"
-import { FcSearch } from "react-icons/fc";
-import { MdOutlineFavorite } from "react-icons/md";
 import ChatBlock from "@/components/chat/ChatBlock";
 
 export default function NavBar () {
@@ -18,10 +16,8 @@ export default function NavBar () {
                     className={styles.searchInput}
                 />
                 <button className={styles.searchButton}>
-                    <FcSearch  />
                 </button>
                 <button className={styles.favoriteButton}>
-                    <MdOutlineFavorite />
                 </button>
             </div>
 
