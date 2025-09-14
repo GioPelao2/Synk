@@ -1,0 +1,193 @@
+/* [project]/Frontend/waza/src/styles/HeaderBar.module.css [app-client] (css) */
+.HeaderBar-module__gz8Ukq__header {
+  background-color: #fff;
+  border-bottom: 1px solid #4a01be;
+  align-items: start;
+  height: 50px;
+  padding: 0 10px;
+  display: flex;
+}
+
+/* [project]/Frontend/waza/src/styles/NavBar.module.css [app-client] (css) */
+.NavBar-module__Ph4x6W__navContainer {
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.NavBar-module__Ph4x6W__topSection {
+  background-color: #a3a3a3;
+  border-bottom: 1px solid #4a01be;
+  justify-content: center;
+  padding: 10px;
+  display: flex;
+}
+
+.NavBar-module__Ph4x6W__groupChatsButton {
+  color: #4a01be;
+  cursor: pointer;
+  background-color: #fff;
+  border: 1px solid #4a01be;
+  align-items: center;
+  padding: 8px 100px;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color .2s;
+  display: flex;
+}
+
+.NavBar-module__Ph4x6W__groupChatsButton:hover {
+  color: #fff;
+  background-color: #4a01be;
+}
+
+.NavBar-module__Ph4x6W__searchSection {
+  border-radius: 20px;
+  outline: none;
+  align-items: center;
+  padding: 10px;
+  display: flex;
+}
+
+.NavBar-module__Ph4x6W__searchInput {
+  color: #000;
+  cursor: pointer;
+  background-color: #f0f8ff;
+  border: 1px solid #4a01be;
+  border-radius: 20px;
+  flex: 1;
+  padding: 8px;
+}
+
+.NavBar-module__Ph4x6W__searchButton {
+  cursor: pointer;
+  color: #000;
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  margin-left: 10px;
+  font-size: 1.1rem;
+  transition: color .2s;
+}
+
+.NavBar-module__Ph4x6W__favoriteButton {
+  cursor: pointer;
+  color: red;
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  margin-left: 10px;
+  font-size: 1.1rem;
+  transition: color .2s;
+}
+
+.NavBar-module__Ph4x6W__chatListSection {
+  color: #000;
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+}
+
+/* [project]/Frontend/waza/src/styles/Sidebar.module.css [app-client] (css) */
+
+
+/* [project]/Frontend/waza/src/styles/Message.module.css [app-client] (css) */
+.Message-module__nkL9xa__messageBubble {
+  border-radius: 18px;
+  width: 90%;
+  max-width: 60%;
+  height: 60px;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.Message-module__nkL9xa__userMessage {
+  color: #4a01be;
+  background-color: #fff;
+  border-bottom: 5px solid #4a01be;
+  border-left: 4px solid #4a01be;
+  align-self: flex-end;
+}
+
+.Message-module__nkL9xa__otherMessage {
+  background-color: #4a01be;
+  align-self: flex-start;
+}
+
+/* [project]/Frontend/waza/src/styles/MessageInput.module.css [app-client] (css) */
+.MessageInput-module__cS0Dgq__inputContainer {
+  box-sizing: border-box;
+  background-color: #a9a9a9;
+  border-top: 1px solid;
+  align-items: flex-start;
+  min-height: 100px;
+  padding: 10px 15px;
+  display: flex;
+}
+
+.MessageInput-module__cS0Dgq__messageInput {
+  color: #000;
+  background-color: #fff;
+  border: 1px solid;
+  border-radius: 20px;
+  flex: 1;
+  min-height: 45px;
+  margin-right: 10px;
+  padding: 8px 16px;
+}
+
+.MessageInput-module__cS0Dgq__sendButton {
+  color: #fff;
+  cursor: pointer;
+  background-color: #4a01be;
+  border: none;
+  border-radius: 20px;
+  min-height: 45px;
+  padding: 8px 16px;
+}
+
+/* [project]/Frontend/waza/src/styles/ChatWindow.module.css [app-client] (css) */
+.ChatWindow-module__Q4ImAa__ChatWindowContainer {
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.ChatWindow-module__Q4ImAa__messageList {
+  flex-direction: column;
+  flex: 1;
+  padding: 10px;
+  display: flex;
+  overflow-y: auto;
+}
+
+/* [project]/Frontend/waza/src/app/page.module.css [app-client] (css) */
+.page-module__9vgY4W__mainCintainer {
+  flex-direction: column;
+  height: 1px;
+  display: flex;
+}
+
+.page-module__9vgY4W__Columncontainer {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+}
+
+.page-module__9vgY4W__Columncontainer > :first-child {
+  background-color: #4a01be;
+  flex: 0 0 60px;
+}
+
+.page-module__9vgY4W__Columncontainer > :nth-child(2) {
+  background-color: #d3d3d3;
+  flex: 0 0 750px;
+}
+
+.page-module__9vgY4W__Columncontainer > :nth-child(3) {
+  background-color: #fcfcfc;
+  flex: 1;
+}
+
+/*# sourceMappingURL=Frontend_waza_src_e588ed74._.css.map*/

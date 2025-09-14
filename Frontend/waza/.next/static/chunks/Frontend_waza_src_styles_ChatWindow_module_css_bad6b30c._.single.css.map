@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/Frontend/waza/src/styles/ChatWindow.module.css"],"sourcesContent":[".ChatWindowContainer {\r\n    display: flex;\r\n    flex-direction: column;\r\n    height: 100%;\r\n    width: 100%;\r\n    justify-content: space-between;\r\n}\r\n\r\n.messageList {\r\n    flex: 1;\r\n    overflow-y: auto;\r\n    padding: 10px;\r\n    display: flex;\r\n    flex-direction: column;\r\n}\r\n"],"names":[],"mappings":"AAAA;;;;;;;;AAQA"}}]
+}
