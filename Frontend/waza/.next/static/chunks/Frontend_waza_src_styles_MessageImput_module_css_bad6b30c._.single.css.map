@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/Frontend/waza/src/styles/MessageImput.module.css"],"sourcesContent":[".imputContainer {\r\n    display: flex;\r\n    padding: 10px;\r\n    border-top: 1px solid;\r\n    background-color: darkgray;\r\n}\r\n\r\n.messageInput {\r\n    background-color: cornflowerblue;\r\n    color: white;\r\n    border: none;\r\n    border-radius: 20px;\r\n    padding: 8px 16px;\r\n    cursor: pointer;\r\n}\r\n\r\n.sendButtom {\r\n    background-color: cornflowerblue;\r\n    color: white;\r\n    border: none;\r\n    border-radius: 20px;\r\n    padding: 8px 16px;\r\n    cursor: pointer;\r\n}"],"names":[],"mappings":"AAAA;;;;;;;AAOA"}}]
-}

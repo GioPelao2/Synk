@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/Frontend/waza/src/styles/MessageInput.module.css"],"sourcesContent":[".inputContainer {\r\n    display: flex;\r\n    min-height: 100px;\r\n    padding: 10px 15px;\r\n    align-items: flex-start;\r\n    border-top: 2px solid #34344A;\r\n    background-color:#34344A;\r\n    box-sizing: border-box;\r\n}\r\n\r\n.messageInput {\r\n    flex: 1;\r\n    min-height: 45px;\r\n    color: #E0E0E0;\r\n    background-color: rgb(255, 255, 255);\r\n    border: 1px solid;\r\n    border-radius: 20px;\r\n    padding: 8px 16px;\r\n    margin-right: 10px;\r\n}\r\n\r\n.sendButton {\r\n    min-height: 45px;\r\n    background-color: #7B4FDE;\r\n    color: white;\r\n    border: none;\r\n    border-radius: 20px;\r\n    padding: 8px 16px;\r\n    cursor: pointer;\r\n}"],"names":[],"mappings":"AAAA;;;;;;;;;;AAUA;;;;;;;;;;;AAWA"}}]
-}

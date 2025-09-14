@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/Frontend/waza/src/styles/HeaderBar.module.css"],"sourcesContent":[".header{\r\n    display: flex;\r\n    align-items: start;\r\n    padding: 0px 10px;\r\n    background-color:#34344A;\r\n    border-bottom: 1px solid#28283C;\r\n    height: 50px;\r\n}\r\n\r\n.logoContainer{\r\n  \r\n}\r\n"],"names":[],"mappings":"AAAA"}}]
-}
