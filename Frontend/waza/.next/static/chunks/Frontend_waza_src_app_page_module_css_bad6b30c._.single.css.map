@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/Frontend/waza/src/app/page.module.css"],"sourcesContent":[".mainCintainer{\r\n    display: flex;\r\n    flex-direction: column;\r\n    height: 1;\r\n}\r\n\r\n.Columncontainer {\r\n    display : flex;\r\n    height: 100vh;\r\n    width : 100%;\r\n}\r\n\r\n.Columncontainer > :nth-child(1) {\r\n    flex: 0 0 60px;\r\n    background-color:#34344A;\r\n}\r\n\r\n.Columncontainer > :nth-child(2) {\r\n    flex: 0 0 750px;\r\n    background-color:#1E1E2F;\r\n}\r\n\r\n.Columncontainer > :nth-child(3) {\r\n    flex: 1;\r\n    background-color:#28283C;\r\n}"],"names":[],"mappings":"AAAA;;;;;;AAMA;;;;;;AAMA;;;;;AAKA;;;;;AAKA"}}]
+}

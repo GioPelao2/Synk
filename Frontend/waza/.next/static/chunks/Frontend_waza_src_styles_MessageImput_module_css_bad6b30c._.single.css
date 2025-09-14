@@ -1,0 +1,18 @@
+/* [project]/Frontend/waza/src/styles/MessageImput.module.css [app-client] (css) */
+.MessageImput-module__JqzqLq__imputContainer {
+  background-color: #a9a9a9;
+  border-top: 1px solid;
+  padding: 10px;
+  display: flex;
+}
+
+.MessageImput-module__JqzqLq__messageInput, .MessageImput-module__JqzqLq__sendButtom {
+  color: #fff;
+  cursor: pointer;
+  background-color: #6495ed;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 16px;
+}
+
+/*# sourceMappingURL=Frontend_waza_src_styles_MessageImput_module_css_bad6b30c._.single.css.map*/

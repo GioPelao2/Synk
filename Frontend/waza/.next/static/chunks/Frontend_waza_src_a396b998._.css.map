@@ -1,0 +1,9 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/HP/Documents/GitHub/Waza/Frontend/waza/src/styles/NavBar.module.css"],"sourcesContent":[""],"names":[],"mappings":"","debugId":null}},
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/HP/Documents/GitHub/Waza/Frontend/waza/src/styles/Sidebar.module.css"],"sourcesContent":[".navbar {\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content: space-between;\r\n    height: 100%;\r\n    padding: 10px 0;\r\n}"],"names":[],"mappings":"AAAA","debugId":null}},
+    {"offset": {"line": 13, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/HP/Documents/GitHub/Waza/Frontend/waza/src/styles/Chat.module.css"],"sourcesContent":[""],"names":[],"mappings":"","debugId":null}},
+    {"offset": {"line": 16, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/HP/Documents/GitHub/Waza/Frontend/waza/src/app/page.module.css"],"sourcesContent":[".container {\r\n    display : flex;\r\n    height: 100vh;\r\n    width : 100%;\r\n}\r\n\r\n.container > :nth-child(1) {\r\n    flex: 0 0 60px;\r\n    background-color:cornflowerblue;\r\n}\r\n\r\n.container > :nth-child(2) {\r\n    flex: 0 0 750px;\r\n    background-color:lightgray;\r\n}\r\n\r\n.container > :nth-child(3) {\r\n    flex: 1;\r\n    background-color:aliceblue;\r\n}"],"names":[],"mappings":"AAAA;;;;;;AAMA;;;;;AAKA;;;;;AAKA","debugId":null}}]
+}

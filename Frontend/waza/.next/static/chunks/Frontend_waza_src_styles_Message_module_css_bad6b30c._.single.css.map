@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/Frontend/waza/src/styles/Message.module.css"],"sourcesContent":[".messageBubble {\r\n    max-width: 60%;\r\n    padding: 10px;\r\n    border-radius: 18px;\r\n    margin-bottom: 10px;\r\n    height: 60px;\r\n    width: 90%;\r\n}\r\n\r\n.userMessage {\r\n    background-color:#7B4FDE;\r\n    border-bottom: 5px solid rgb(74, 1, 190);\r\n    border-left: 4px solid rgb(74, 1, 190);\r\n    color:#E0E0E0;\r\n    align-self: flex-end;\r\n}\r\n\r\n.otherMessage {\r\n    color: #E0E0E0;\r\n    background-color: #1E1E2F;\r\n    align-self: flex-start;\r\n    border-bottom: 5px solid rgb(74, 1, 190);\r\n    border-right: 4px solid rgb(74, 1, 190);\r\n}"],"names":[],"mappings":"AAAA;;;;;;;;;AASA;;;;;;;;AAQA"}}]
+}

@@ -1,0 +1,18 @@
+/* [project]/Frontend/waza/src/styles/ChatWindow.module.css [app-client] (css) */
+.ChatWindow-module__Q4ImAa__ChatWindowContainer {
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.ChatWindow-module__Q4ImAa__messageList {
+  flex-direction: column;
+  flex: 1;
+  padding: 10px;
+  display: flex;
+  overflow-y: auto;
+}
+
+/*# sourceMappingURL=Frontend_waza_src_styles_ChatWindow_module_css_bad6b30c._.single.css.map*/

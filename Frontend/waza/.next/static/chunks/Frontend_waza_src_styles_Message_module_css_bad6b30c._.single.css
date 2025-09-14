@@ -1,0 +1,27 @@
+/* [project]/Frontend/waza/src/styles/Message.module.css [app-client] (css) */
+.Message-module__nkL9xa__messageBubble {
+  border-radius: 18px;
+  width: 90%;
+  max-width: 60%;
+  height: 60px;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.Message-module__nkL9xa__userMessage {
+  color: #e0e0e0;
+  background-color: #7b4fde;
+  border-bottom: 5px solid #4a01be;
+  border-left: 4px solid #4a01be;
+  align-self: flex-end;
+}
+
+.Message-module__nkL9xa__otherMessage {
+  color: #e0e0e0;
+  background-color: #1e1e2f;
+  border-bottom: 5px solid #4a01be;
+  border-right: 4px solid #4a01be;
+  align-self: flex-start;
+}
+
+/*# sourceMappingURL=Frontend_waza_src_styles_Message_module_css_bad6b30c._.single.css.map*/

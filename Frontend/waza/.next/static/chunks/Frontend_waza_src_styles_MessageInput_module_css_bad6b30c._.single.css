@@ -1,0 +1,33 @@
+/* [project]/Frontend/waza/src/styles/MessageInput.module.css [app-client] (css) */
+.MessageInput-module__cS0Dgq__inputContainer {
+  box-sizing: border-box;
+  background-color: #34344a;
+  border-top: 2px solid #34344a;
+  align-items: flex-start;
+  min-height: 100px;
+  padding: 10px 15px;
+  display: flex;
+}
+
+.MessageInput-module__cS0Dgq__messageInput {
+  color: #e0e0e0;
+  background-color: #fff;
+  border: 1px solid;
+  border-radius: 20px;
+  flex: 1;
+  min-height: 45px;
+  margin-right: 10px;
+  padding: 8px 16px;
+}
+
+.MessageInput-module__cS0Dgq__sendButton {
+  color: #fff;
+  cursor: pointer;
+  background-color: #7b4fde;
+  border: none;
+  border-radius: 20px;
+  min-height: 45px;
+  padding: 8px 16px;
+}
+
+/*# sourceMappingURL=Frontend_waza_src_styles_MessageInput_module_css_bad6b30c._.single.css.map*/
