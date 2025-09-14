@@ -1,0 +1,12 @@
+.header{
+    display: flex;
+    align-items: start;
+    padding: 0px 10px;
+    background-color:#34344A;
+    border-bottom: 1px solid#28283C;
+    height: 50px;
+}
+
+.logoContainer{
+  
+}

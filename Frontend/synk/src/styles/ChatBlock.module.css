@@ -1,0 +1,82 @@
+.container{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid ;
+    transition: background-color 0.2s ease;
+    position: relative;
+}
+
+.container:hover{
+    background-color: rgb(74, 1, 190);
+}
+
+.statusBar{
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 80%;
+    border-radius: 4px;
+}
+
+.online{
+    background-color: #3EC97D;
+}
+
+.offline{
+    background-color: yellow;
+}
+
+.avatar{
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 15px;
+}
+
+.info{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.name{
+    color:#E0E0E0;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.lastMessage{
+    color:#9999AC;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.details{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-size: 12px;
+}
+
+.time{
+    color: #9999AC;
+    margin-bottom: 5px;
+}
+
+.unreadCount{
+    background-color: #007bff;
+    color: #9999AC;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+}
+

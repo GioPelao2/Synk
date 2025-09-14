@@ -1,0 +1,24 @@
+.messageBubble {
+    max-width: 60%;
+    padding: 10px;
+    border-radius: 18px;
+    margin-bottom: 10px;
+    height: 60px;
+    width: 90%;
+}
+
+.userMessage {
+    background-color:#7B4FDE;
+    border-bottom: 5px solid rgb(74, 1, 190);
+    border-left: 4px solid rgb(74, 1, 190);
+    color:#E0E0E0;
+    align-self: flex-end;
+}
+
+.otherMessage {
+    color: #E0E0E0;
+    background-color: #1E1E2F;
+    align-self: flex-start;
+    border-bottom: 5px solid rgb(74, 1, 190);
+    border-right: 4px solid rgb(74, 1, 190);
+}
