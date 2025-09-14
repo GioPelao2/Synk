@@ -1,9 +1,9 @@
-package com.message.infrastructure.persistance;
+package com.message.infrastructure.persistence;
 
 import com.message.domain.entities.User;
 import com.message.domain.repositories.UserRepository;
 import com.message.domain.valueobjects.UserId;
-import com.message.infrastructure.UserMapper;
+import com.message.presentation.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
