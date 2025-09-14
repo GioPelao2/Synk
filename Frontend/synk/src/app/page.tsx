@@ -6,17 +6,16 @@ import styles from "./page.module.css";
 
 export default function Home() {
   const logoUrl = "/images/logo_SYNK.png"
-  
-  return (
 
-    <div className={styles.maincontainer}>
-      <Header logoSrc={logoUrl} />
-      
-      <div className={styles.Columncontainer}>
-        <Sidebar />
-        <NavBar />
-        <ChatWindow />
-      </div>
+  return (
+    <div className={styles.mainContainer}>
+    <Header logoSrc={logoUrl} />
+
+    <div className={styles.Columncontainer}>
+    <Sidebar />
+    <NavBar />
+    <ChatWindow />
+    </div>
     </div>
   );
 }

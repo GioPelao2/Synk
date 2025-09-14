@@ -5,13 +5,12 @@ interface HeaderProps {
     logoSrc: string;
 }
 
-export default function HeaderBar ({ logoSrc}: HeaderProps){
+export default function Header({ logoSrc }: HeaderProps) {
     return (
         <header className={styles.header}>
-            <div className={styles.logoContainer}>
-                <Logo src= {logoSrc} alt="Logo App" />
-            </div>
+        <div className={styles.logoContainer}>
+        <Logo src={logoSrc} alt="Logo App" />
+        </div>
         </header>
     );
 }
-
