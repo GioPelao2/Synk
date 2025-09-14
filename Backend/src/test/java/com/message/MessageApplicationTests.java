@@ -1,10 +1,10 @@
-package com.Mesagge;
+package com.message;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class MesaggeApplicationTests {
+class MessageApplicationTests {
 
 	@Test
 	void contextLoads() {
