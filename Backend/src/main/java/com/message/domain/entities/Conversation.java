@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Representa una conversación entre usuarios
  * TODO: Agregar soporte para conversaciones grupales en el futuro
  * FIXME: El método getLastMessage() puede lanzar IndexOutOfBoundsException
  */

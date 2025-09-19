@@ -6,22 +6,21 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
- * Entidad que representa un usuario del sistema de mensajería
  * TODO: Agregar campos como avatar, nombre completo, etc.
  */
 public class User {
     private UserId id;
-    private String username; // Único en el sistema
-    private String email;    // También único
+    private String username; // unico
+    private String email;    // unico
     private UserStatus status;
-    private LocalDateTime lastSeen; // Para saber cuándo estuvo activo por última vez
+    private LocalDateTime lastSeen;
 
     // Constructor para usuarios que ya existen en BD
     public User(UserId id, String username, String email, UserStatus status, LocalDateTime lastSeen) {
         this.id = Objects.requireNonNull(id, "UserId cannot be null");
         this.username = Objects.requireNonNull(username, "Username cannot be null");
         this.email = Objects.requireNonNull(email, "Email cannot be null");
-        this.status = UserStatus.OFFLINE; // Siempre empiezan offline por seguridad
+        this.status = UserStatus.OFFLINE;
         this.lastSeen = LocalDateTime.now();
     }
 
@@ -35,8 +34,8 @@ public class User {
     }
 
     /**
-     * Método para asignar ID real después de guardar en BD
-     * Patrón similar al de Message, funciona bien
+     * Método para asignar ID real despues de guardar en BD
+     * similar al de Message, funciona bien
      */
     public User withId(UserId newId) {
         if (!this.id.isTemporary()) {
@@ -48,7 +47,7 @@ public class User {
     // Métodos para cambiar el estado del usuario
     public void goOnline() {
         this.status = UserStatus.ONLINE;
-        this.lastSeen = LocalDateTime.now(); // se actualiza lastSeen siempre
+        this.lastSeen = LocalDateTime.now();
     }
 
     public void goOffline() {

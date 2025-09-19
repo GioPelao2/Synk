@@ -7,8 +7,8 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
- * Clase que representa un mensaje entre usuarios
- * NOTE: hay varios constructores porque agregue funcionalidades sobre la marcha
+ * representa un mensaje entre usuarios
+ * NOTA: hay varios constructores porque agregue funcionalidades sobre la marcha
  */
 public class Message {
     private MessageId messageId;
@@ -17,7 +17,7 @@ public class Message {
     private String content; // TODO: Validar longitud máxima del contenido
     private LocalDateTime timestamp;
     private MessageType messageType;
-    private boolean isRead; // Para saber si ya fue leído
+    private boolean isRead;
 
     // Constructor para cuando se trae mensajes desde la BD
     public Message(MessageId messageId, UserId senderId, UserId receiverId, String content, LocalDateTime timestamp, boolean isRead) {
@@ -26,13 +26,13 @@ public class Message {
         this.receiverId = Objects.requireNonNull(receiverId, "ReceiverId cannot be null");
         this.content = Objects.requireNonNull(content, "Content cannot be null");
         this.timestamp = Objects.requireNonNull(timestamp, "Timestamp cannot be null");
-        this.messageType = messageType.TEXT;
+        this.messageType = messageType.TEXT; //Arreglar?
         this.isRead = isRead;
     }
 
     // Constructor para mensajes nuevos (más común)
     public Message(UserId senderId, UserId receiverId, String content) {
-        this.messageId = MessageId.from(-1L); // Hack temporal hasta que la BD le asigne el ID real
+        this.messageId = MessageId.from(-1L); // temporal hasta que la BD le asigne el ID real
         this.senderId = Objects.requireNonNull(senderId, "SenderId cannot be null");
         this.receiverId = Objects.requireNonNull(receiverId, "ReceiverId cannot be null");
         this.content = Objects.requireNonNull(content, "Content cannot be null");
@@ -52,7 +52,7 @@ public class Message {
 
     /**
      * Método para asignar un ID real después de guardar en BD
-     * Es un poco feo pero funciona bien
+     * feo pero funciona bien
      */
     public Message withId(MessageId newId) {
         if (!this.messageId.value().equals(-1L)) {
