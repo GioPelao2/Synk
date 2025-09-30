@@ -16,7 +16,7 @@
 }
 
 .Columncontainer > :nth-child(2) {
-    flex: 0 0 750px;
+    flex: 0 0 600px;
     background-color: #1E1E2F;
 }
 
