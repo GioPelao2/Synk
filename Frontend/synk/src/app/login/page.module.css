@@ -1,8 +1,20 @@
 .maincontainer{
+    min-height: 100vh;
+    width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background-color: aqua;
-    color: white;
+    background-color: #1E1E2F;
+    overflow: auto;
+}
+
+.loginBox {
+    width: 100%;
+    max-width: 380px;
+    padding: 40px;
+    background-color: #28283c;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    margin: 20px;
 }

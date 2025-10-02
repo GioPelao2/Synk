@@ -1,0 +1,92 @@
+.authForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.inputField {
+    padding: 14px 18px;
+    border: 1px solid #3c3c54;
+    border-radius: 10px;
+    background-color: #34344A;
+    color: #ffffff;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+    outline: none;
+}
+
+.inputField:focus {
+    border-color: #9333ea;
+    box-shadow: 0 0 0 1px #9333ea;
+}
+
+.optionsRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+.checkboxContainer{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: #a0a0a0;
+}
+
+.checkboxContainer input[type="checkbox"] {
+    margin-top: 8px;
+}
+
+.forgotPassword {
+    color: #9333ea;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.forgotPassword:hover {
+    color: #a750f0
+}
+
+.authButton {
+    padding: 14px;
+    background-color: #9333ea;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.authButton:hover {
+    background-color: #7c2de8;
+}
+
+.footerLinks {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 30px;
+    font-size: 0.95rem;
+    color: #a0a0a0;
+}
+
+.switchButton {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: #9333ea;
+    cursor: pointer;
+    text-decoration: underline;
+    transition: color 0.2s;
+}
+
+.switchButton:hover {
+    color: #a750f0;
+}
