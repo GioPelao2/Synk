@@ -9,7 +9,7 @@
 }
 
 .container:hover{
-    background-color: rgb(74, 1, 190)
+    background-color: #9333ea;
 }
 
 .statusBar{
@@ -69,8 +69,8 @@
 }
 
 .unreadCount{
-    background-color: #007bff;
-    color: #9999AC;
+    background-color: #9333ea;
+    color: #d6d6d6;
     border-radius: 50%;
     width: 20px;
     height: 20px;

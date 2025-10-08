@@ -22,8 +22,6 @@ const NavBar: React.FC<NavBarProps> = ({ contacts, onContactClick }) => {
                     placeholder="Buscar Contactos"
                     className={styles.searchInput}
                 />
-                <button className={styles.searchButton} />
-                <button className={styles.favoriteButton} />
             </div>
 
             <div className={styles.chatListSection}>
