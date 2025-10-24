@@ -1,47 +1,59 @@
 'use client'
-import React, { useState} from "react";
+import React, { useState, useEffect} from "react";
 import Header from "@/components/layout/Header"
 import NavBar from "@/components/layout/NavBar";
 import Sidebar from "@/components/layout/Sidebar";
 import ChatWindow from "@/components/chat/ChatWindow";
-import { ContactData, ConversationData } from "@/types/chat";
+import { getOnlineUsers, getConversationHistory } from "@/services/api";
 import styles from "./page.module.css";
 
-const MOCK_CONTACTS: ContactData[] = [
-  { id: 1, name: 'JuaKo', status: 'pero hermano sakjfkj', avatarUrl: '/images/avatar1.jpg' },
-  { id: 2, name: 'Hermano', status: 'Online', avatarUrl: '/images/avatar1.jpg' },
-];
+interface User{
+  id: number;
+  username: string;
+  email: string;
+  status: string;
+  lastSeen: string;
+}
 
-const MOCK_CONVERSATIONS: ConversationData[] = [
-  {
-    contactId: 1,
-    messages: [
-      { id: 101, text: "pero brother kasfjkas", timestamp: "9:45 AM", senderId: 1},
-      { id: 102, text: "Como estai hrno?", timestamp: "12:21 PM", senderId: 999},
-    ]
-  },
-  {
-    contactId: 2,
-    messages: [
-      { id: 101, text: "llegaste a la casa?", timestamp: "14:27 PM", senderId: 2},
-      { id: 102, text: "o sigues en la Ufro?", timestamp: "14:27 PM", senderId: 2},
-      { id: 103, text: "ya llegué hrno, salí antes de clase", timestamp: "14:29 PM", senderId: 999},
-    ]
-  },
-];
+interface Message {
+  id: number;
+  senderUsername: string;
+  receiverUsername: string;
+  content: string;
+  timestamp: string;
+}
 
 export default function Home() {
   const logoUrl = "/images/logo_SYNK.png"
-  const [activeContact, setActiveContact] = useState<ContactData | null>(null);
- {/*clik contacto */}
-  const handleContactSelect = (contact: ContactData) => {
-    setActiveContact(contact);
+  const [onlineUsers, setOnlineUsers] = useState<User[]>([]);
+  const [activeContact, setActiveContact] = useState<User | null>(null);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const myUserId = 1;
+
+  const handleContactSelect = (user: User) => {
+    setActiveContact(user);
   };
 
-  //si no existe una conversación, se utilizará un array vacío
-  const activeMessages = activeContact
-  ? MOCK_CONVERSATIONS.find(c => c.contactId === activeContact.id)?.messages || []
-  : [];
+  useEffect(() => {
+    const loadUsers = async () => {
+      const users = await getOnlineUsers(); // Llama a http://localhost:8080/api/users/online
+      setOnlineUsers(users);
+    };
+
+      loadUsers();
+  }, []);
+
+  useEffect(() => {
+    if (activeContact) {
+      const loadConversation = async () => {
+        const history = await getConversationHistory(myUserId, activeContact.id);
+        setMessages(history);
+      };
+      loadConversation();
+    } else {
+      setMessages([]);
+    }
+  }, [activeContact]) 
 
   return (
     <div className={styles.mainContainer}>
@@ -51,13 +63,14 @@ export default function Home() {
             <Sidebar />
     
             <NavBar
-                contacts={MOCK_CONTACTS}
+                users={onlineUsers}
                 onContactClick={handleContactSelect}
+                activeContact={activeContact}
             />
 
             <ChatWindow 
                 activeContact={activeContact}
-                messages={activeMessages}
+                messages={messages}
             />
         </div>
     </div>

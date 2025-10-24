@@ -1,6 +1,6 @@
 import React from "react";
 import styles from '@/styles/ChatHeader.module.css'
-import { ChatHeaderProps } from "@/types/chat";
+import { ChatHeaderProps } from "@/types";
 
 const ChatHeader: React.FC<ChatHeaderProps> = ({ contact }) => {
     if (!contact){

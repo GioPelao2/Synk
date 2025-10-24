@@ -1,14 +1,15 @@
 import React from "react";
 import styles from "@/styles/NavBar.module.css"
 import ChatBlock from "@/components/chat/ChatBlock";
-import { ContactData } from "@/types/chat";
+import { User } from "@/types";
 
 interface NavBarProps {
-    contacts: ContactData[];
-    onContactClick: (contact: ContactData) => void;
+    users: User[];
+    onContactClick: (user: User) => void;
+    activeContact: User | null;
 }
 
-const NavBar: React.FC<NavBarProps> = ({ contacts, onContactClick }) => {
+const NavBar: React.FC<NavBarProps> = ({ users, onContactClick, activeContact }) => {
     return (
         <div className={styles.navContainer}>
             <div className={styles.topSection}> 
@@ -25,16 +26,15 @@ const NavBar: React.FC<NavBarProps> = ({ contacts, onContactClick }) => {
             </div>
 
             <div className={styles.chatListSection}>
-                {contacts.map((contacts) => (
+                {users.map((user) => (
                     <div
-                        key={contacts.id}
-                        onClick={() => onContactClick(contacts)}
+                        key={user.id}
+                        onClick={() => onContactClick(user)}
                         //posibles futuros estilos para el hover activo
                     >
                         <ChatBlock
-                        avatarSrc={contacts.avatarUrl}
-                        name={contacts.name}
-                        lastMessage={contacts.status}
+                        name={user.username}
+                        lastMessage={user.status}
                         time="9:45 AM"
                         unreadCount={2}
                         onlineStatus="online"
