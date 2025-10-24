@@ -16,11 +16,14 @@
 }
 
 .Columncontainer > :nth-child(2) {
-    flex: 0 0 750px;
+    flex: 0 0 600px;
     background-color: #1E1E2F;
 }
 
 .Columncontainer > :nth-child(3) {
     flex: 1;
-    background-color: #28283C;
+    background-color: #28283C; 
+    background-image: 
+        radial-gradient(circle, rgba(238, 238, 238, 0.089) 1px, transparent 0);
+    background-size: 15px 15px;
 }

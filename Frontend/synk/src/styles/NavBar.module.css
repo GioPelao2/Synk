@@ -19,7 +19,7 @@
     align-items: center;
     background-color: transparent;
     color: #9999AC;
-    border: 1px solid rgb(74, 1, 190);
+    border: 1px solid #9333ea;
     font-weight: bold;
     font-size: 16px;
     cursor: pointer;
@@ -28,7 +28,7 @@
 }
 
 .groupChatsButton:hover {
-    background-color: rgb(74, 1, 190);
+    background-color: #9333ea;
     color: white;
 }
 
@@ -43,33 +43,11 @@
 .searchInput {
     flex: 1;
     background-color:#34344A;
-    color:black;
+    color:rgb(243, 240, 240);
     padding: 8px;
-    border: 1px solid rgb(74, 1, 190);
+    border: 1px solid #9333ea;
     border-radius: 20px;
     cursor: pointer;
-}
-
-.searchButton {
-    background-color: transparent;
-    border: none;
-    font-size: 1.1rem;
-    margin-left: 10px;
-    cursor: pointer;
-    color: rgb(0, 0, 0);
-    transition: color 0.2s ease;
-  
-}
-
-.favoriteButton {
-    background-color: transparent;
-    border: none;
-    font-size: 1.1rem;
-    margin-left: 10px;
-    cursor: pointer;
-    color: red;
-    transition: color 0.2s ease;
-
 }
 
 .chatListSection {
