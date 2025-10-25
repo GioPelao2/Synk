@@ -6,13 +6,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.message.domain.entities.User;
+import com.message.domain.enums.UserStatus;
 import com.message.domain.valueobjects.UserId;
 import com.message.infrastructure.persistence.UserRepositoryImpl;
 import com.message.presentation.dto.UserDTO;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.Arrays; 
+import java.time.LocalDateTime;
+
 
 @RestController
 @RequestMapping("/api/users")
@@ -52,11 +57,30 @@ public class UserController {
     // Obtener usuarios online
     @GetMapping("/online")
     public ResponseEntity<List<UserDTO>> getOnlineUsers() {
+       UserDTO mockUser1 = UserDTO.forResponse(
+        1L, 
+        "AdminMock", 
+        "admin@mock.com", 
+        UserStatus.ONLINE, // Usar el ENUM correcto
+        null
+    );
+    UserDTO mockUser2 = UserDTO.forResponse(
+        2L, 
+        "TestUser", 
+        "test@mock.com", 
+        UserStatus.OFFLINE, 
+        LocalDateTime.now()
+    );
+        
+        List<UserDTO> dtos = Arrays.asList(mockUser1, mockUser2);
+        /* 
         List<User> users = userRepository.findOnlineUsers();
         List<UserDTO> dtos = users.stream()
             .map(user -> UserDTO.forResponse(user.getId().value(), user.getUsername(),
                                            user.getEmail(), user.getStatus(), user.getLastSeen()))
             .collect(Collectors.toList());
+            */
+            System.out.println("✅ Devolviendo MOCK de usuarios online.");
         return ResponseEntity.ok(dtos);
     }
 
