@@ -21,7 +21,6 @@ import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/api/users")
-@CrossOrigin(origins = "*")
 public class UserController {
 
     @Autowired
@@ -59,15 +58,15 @@ public class UserController {
     public ResponseEntity<List<UserDTO>> getOnlineUsers() {
        UserDTO mockUser1 = UserDTO.forResponse(
         1L, 
-        "AdminMock", 
-        "admin@mock.com", 
-        UserStatus.ONLINE, // Usar el ENUM correcto
+        "Luchito", 
+        "lucho1234@mock.com", 
+        UserStatus.ONLINE,
         null
     );
     UserDTO mockUser2 = UserDTO.forResponse(
         2L, 
-        "TestUser", 
-        "test@mock.com", 
+        "Eloysito", 
+        "eloy@mock.com", 
         UserStatus.OFFLINE, 
         LocalDateTime.now()
     );
@@ -80,7 +79,7 @@ public class UserController {
                                            user.getEmail(), user.getStatus(), user.getLastSeen()))
             .collect(Collectors.toList());
             */
-            System.out.println("✅ Devolviendo MOCK de usuarios online.");
+            System.out.println("Devolviendo MOCK de usuarios online.");
         return ResponseEntity.ok(dtos);
     }
 
