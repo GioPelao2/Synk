@@ -1179,3 +1179,8 @@ java.lang.IllegalArgumentException: When allowCredentials is true, allowedOrigin
 2025-10-26T18:32:51.632-03:00  WARN 9420 --- [message-service] [http-nio-8080-exec-6] o.s.web.servlet.PageNotFound             : No endpoint GET /messages/conversation/1/2.
 2025-10-26T18:32:51.633-03:00 DEBUG 9420 --- [message-service] [http-nio-8080-exec-6] o.j.s.OpenEntityManagerInViewInterceptor : Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
 2025-10-26T18:32:51.634-03:00 DEBUG 9420 --- [message-service] [http-nio-8080-exec-6] o.j.s.OpenEntityManagerInViewInterceptor : Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-10-26T18:34:34.368-03:00  INFO 9420 --- [message-service] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-10-26T18:34:34.398-03:00  INFO 9420 --- [message-service] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-10-26T18:34:34.406-03:00  INFO 9420 --- [message-service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-10-26T18:34:34.409-03:00  INFO 9420 --- [message-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-10-26T18:34:34.411-03:00  INFO 9420 --- [message-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
