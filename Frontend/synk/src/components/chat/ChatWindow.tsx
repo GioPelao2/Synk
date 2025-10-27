@@ -1,6 +1,6 @@
 import React from "react";
 import ChatHeader from "./ChatHeader";
-import { ContactData, MessageData } from "@/types/chat";
+import { ContactData, MessageData } from "@/types";
 import Message from "@/components/chat/Message";
 import MessageInput from "@/components/chat/MessageInput";
 import styles from "@/styles/ChatWindow.module.css";

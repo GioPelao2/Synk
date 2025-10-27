@@ -3,7 +3,6 @@ import styles from "@/styles/ChatBlock.module.css";
 import Image from "next/image";
 
 interface ChatBlockProps {
-  avatarSrc: string;
   name: string;
   lastMessage: string;
   time: string;
@@ -12,7 +11,6 @@ interface ChatBlockProps {
 }
 
 const ChatBlock: React.FC<ChatBlockProps> = ({
-    avatarSrc,
     name,
     lastMessage,
     time,
@@ -22,10 +20,6 @@ const ChatBlock: React.FC<ChatBlockProps> = ({
     return (
     <div className={styles.container}>
         <div className={`${styles.statusBar} ${styles[onlineStatus]}`}></div>
-
-    <div className={styles.avatar}>
-        <Image src={avatarSrc} alt={`${name}'s avatar`} width={48} height={48} />
-    </div>
 
     <div className={styles.info}>
         <div className={styles.name}>{name}</div>
