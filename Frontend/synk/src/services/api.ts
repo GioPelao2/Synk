@@ -79,8 +79,18 @@ export async function getOnlineUsers() {
 
 // obtener la conversación entre dos usuarios
 export async function getConversationHistory(userId1: number, userId2: number) {
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+        console.warn("Token no encontrado para conversación");
+        return [];
+    }
+
     try {
-        const response = await fetch(`${BASE_URL}/messages/conversation/${userId1}/${userId2}`);
+        const response = await fetch(`${BASE_URL}/api/messages/conversation/${userId1}/${userId2}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        });
 
         if (!response.ok) {
             throw new Error(`Error al obtener conversación: ${response.statusText}`);
