@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.MediaType;
 
 import com.message.domain.entities.Message;
 import com.message.domain.entities.User;
@@ -19,7 +20,6 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/messages")
-@CrossOrigin(origins = "*")
 public class MessageController {
 
     @Autowired
@@ -58,7 +58,8 @@ public class MessageController {
     }
 
     // Obtener conversación entre dos usuarios
-    @GetMapping("/conversation/{userId1}/{userId2}")
+    @GetMapping(value = "/conversation/{userId1}/{userId2}",
+                produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<MessageDTO>> getConversation(
             @PathVariable Long userId1, @PathVariable Long userId2) {
 
