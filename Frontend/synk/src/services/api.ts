@@ -80,13 +80,15 @@ export async function getOnlineUsers() {
 // obtener la conversación entre dos usuarios
 export async function getConversationHistory(userId1: number, userId2: number) {
     const token = localStorage.getItem('authToken');
+
     if (!token) {
         console.warn("Token no encontrado para conversación");
         return [];
     }
 
     try {
-        const response = await fetch(`${BASE_URL}/api/messages/conversation/${userId1}/${userId2}`, {
+        const url = `${BASE_URL}/api/messages/history?userId1=${userId1}&userId2=${userId2}`;
+        const response = await fetch(url, {
             headers: {
                 'Authorization': `Bearer ${token}`,
             },

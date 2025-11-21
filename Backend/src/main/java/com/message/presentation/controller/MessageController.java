@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.message.domain.entities.Message;
 import com.message.domain.entities.User;
@@ -58,11 +59,12 @@ public class MessageController {
     }
 
     // Obtener conversación entre dos usuarios
-    @GetMapping(value = "/conversation/{userId1}/{userId2}",
-                produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping("/history")
     public ResponseEntity<List<MessageDTO>> getConversation(
-            @PathVariable Long userId1, @PathVariable Long userId2) {
-
+            @RequestParam Long userId1,
+            @RequestParam Long userId2) {
+    
+        /* 
         UserId id1 = UserId.from(userId1);
         UserId id2 = UserId.from(userId2);
 
@@ -74,7 +76,10 @@ public class MessageController {
         if (user1.isEmpty() || user2.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
+        */
+       return ResponseEntity.ok(java.util.Collections.emptyList());
 
+       /*
         // Mapear a DTOs
         List<MessageDTO> messageDTOs = messages.stream()
             .map(message -> {
@@ -92,7 +97,9 @@ public class MessageController {
             .collect(Collectors.toList());
 
         return ResponseEntity.ok(messageDTOs);
+        */
     }
+        
 
     // Obtener mensajes no leídos para un usuario
     @GetMapping("/unread/{userId}")
