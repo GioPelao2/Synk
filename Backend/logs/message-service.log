@@ -505,3 +505,164 @@
 2025-11-21T16:15:40.893-03:00 DEBUG 22556 --- [message-service] [http-nio-8080-exec-10] o.j.s.OpenEntityManagerInViewInterceptor : Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
 2025-11-21T16:15:41.309-03:00 DEBUG 22556 --- [message-service] [http-nio-8080-exec-2] o.j.s.OpenEntityManagerInViewInterceptor : Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
 2025-11-21T16:15:41.311-03:00 DEBUG 22556 --- [message-service] [http-nio-8080-exec-2] o.j.s.OpenEntityManagerInViewInterceptor : Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-11-21T16:25:25.169-03:00  INFO 22556 --- [message-service] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-11-21T16:25:25.198-03:00  INFO 22556 --- [message-service] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-11-21T16:25:25.212-03:00  INFO 22556 --- [message-service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-11-21T16:25:25.216-03:00  INFO 22556 --- [message-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-11-21T16:25:25.219-03:00  INFO 22556 --- [message-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-11-21T16:28:50.828-03:00  INFO 10260 --- [message-service] [main] com.message.MessageApplication           : Starting MessageApplication using Java 25 with PID 10260 (C:\Users\HP Pavilion Gaming\Documents\GitHub\Synk\Backend\target\classes started by HP Pavilion Gaming in C:\Users\HP Pavilion Gaming\Documents\GitHub\Synk\Backend)
+2025-11-21T16:28:50.830-03:00 DEBUG 10260 --- [message-service] [main] com.message.MessageApplication           : Running with Spring Boot v3.5.5, Spring v6.2.10
+2025-11-21T16:28:50.831-03:00  INFO 10260 --- [message-service] [main] com.message.MessageApplication           : The following 1 profile is active: "dev"
+2025-11-21T16:28:51.782-03:00  INFO 10260 --- [message-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-11-21T16:28:51.953-03:00  INFO 10260 --- [message-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 159 ms. Found 2 JPA repository interfaces.
+2025-11-21T16:28:53.155-03:00  INFO 10260 --- [message-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-11-21T16:28:53.182-03:00  INFO 10260 --- [message-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-11-21T16:28:53.183-03:00  INFO 10260 --- [message-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.44]
+2025-11-21T16:28:53.288-03:00  INFO 10260 --- [message-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-11-21T16:28:53.289-03:00  INFO 10260 --- [message-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2369 ms
+2025-11-21T16:28:53.572-03:00 DEBUG 10260 --- [message-service] [main] j.LocalContainerEntityManagerFactoryBean : Building JPA container EntityManagerFactory for persistence unit 'default'
+2025-11-21T16:28:53.594-03:00  INFO 10260 --- [message-service] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-21T16:28:53.646-03:00  INFO 10260 --- [message-service] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.26.Final
+2025-11-21T16:28:53.677-03:00  INFO 10260 --- [message-service] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-11-21T16:28:53.962-03:00  INFO 10260 --- [message-service] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-11-21T16:28:54.004-03:00  INFO 10260 --- [message-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-11-21T16:28:54.218-03:00  INFO 10260 --- [message-service] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:f00db86b-c199-4b82-9ce7-fbd4728e620c user=SA
+2025-11-21T16:28:54.221-03:00  INFO 10260 --- [message-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-11-21T16:28:54.247-03:00  WARN 10260 --- [message-service] [main] org.hibernate.dialect.Dialect            : HHH000511: The 2.3.232 version for [org.hibernate.dialect.PostgreSQLDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 12.0.0. Check the community dialects project for available legacy versions.
+2025-11-21T16:28:54.254-03:00  WARN 10260 --- [message-service] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-21T16:28:54.286-03:00  INFO 10260 --- [message-service] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-11-21T16:28:55.281-03:00  INFO 10260 --- [message-service] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-21T16:28:55.369-03:00  INFO 10260 --- [message-service] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-11-21T16:28:55.606-03:00  INFO 10260 --- [message-service] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-11-21T16:28:56.815-03:00  WARN 10260 --- [message-service] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-11-21T16:28:57.735-03:00  INFO 10260 --- [message-service] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2025-11-21T16:28:57.838-03:00  INFO 10260 --- [message-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-11-21T16:28:57.865-03:00  INFO 10260 --- [message-service] [main] com.message.MessageApplication           : Started MessageApplication in 7.642 seconds (process running for 8.084)
+2025-11-21T16:29:30.249-03:00  INFO 10260 --- [message-service] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-11-21T16:29:30.249-03:00  INFO 10260 --- [message-service] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-11-21T16:29:30.253-03:00  INFO 10260 --- [message-service] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2025-11-21T16:29:30.319-03:00 DEBUG 10260 --- [message-service] [http-nio-8080-exec-1] o.j.s.OpenEntityManagerInViewInterceptor : Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-11-21T16:29:30.440-03:00 DEBUG 10260 --- [message-service] [http-nio-8080-exec-1] o.j.s.OpenEntityManagerInViewInterceptor : Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-11-21T16:29:31.657-03:00 DEBUG 10260 --- [message-service] [http-nio-8080-exec-2] o.j.s.OpenEntityManagerInViewInterceptor : Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-11-21T16:29:31.758-03:00 DEBUG 10260 --- [message-service] [http-nio-8080-exec-2] o.j.s.OpenEntityManagerInViewInterceptor : Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-11-21T16:29:31.765-03:00 DEBUG 10260 --- [message-service] [http-nio-8080-exec-3] o.j.s.OpenEntityManagerInViewInterceptor : Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-11-21T16:29:31.770-03:00 DEBUG 10260 --- [message-service] [http-nio-8080-exec-3] o.j.s.OpenEntityManagerInViewInterceptor : Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-11-21T16:29:34.524-03:00 DEBUG 10260 --- [message-service] [http-nio-8080-exec-4] o.j.s.OpenEntityManagerInViewInterceptor : Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-11-21T16:29:34.529-03:00 DEBUG 10260 --- [message-service] [http-nio-8080-exec-4] o.j.s.OpenEntityManagerInViewInterceptor : Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-11-21T16:29:37.325-03:00 DEBUG 10260 --- [message-service] [http-nio-8080-exec-6] o.j.s.OpenEntityManagerInViewInterceptor : Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-11-21T16:29:37.331-03:00 DEBUG 10260 --- [message-service] [http-nio-8080-exec-6] o.j.s.OpenEntityManagerInViewInterceptor : Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-11-21T16:29:38.146-03:00 DEBUG 10260 --- [message-service] [http-nio-8080-exec-8] o.j.s.OpenEntityManagerInViewInterceptor : Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-11-21T16:29:38.149-03:00 DEBUG 10260 --- [message-service] [http-nio-8080-exec-8] o.j.s.OpenEntityManagerInViewInterceptor : Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-11-21T16:30:47.374-03:00  INFO 10260 --- [message-service] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-11-21T16:30:47.397-03:00  INFO 10260 --- [message-service] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-11-21T16:30:47.407-03:00  INFO 10260 --- [message-service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-11-21T16:30:47.411-03:00  INFO 10260 --- [message-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-11-21T16:30:47.414-03:00  INFO 10260 --- [message-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-11-21T16:32:56.750-03:00  INFO 3864 --- [message-service] [main] com.message.MessageApplication           : Starting MessageApplication using Java 25 with PID 3864 (C:\Users\HP Pavilion Gaming\Documents\GitHub\Synk\Backend\target\classes started by HP Pavilion Gaming in C:\Users\HP Pavilion Gaming\Documents\GitHub\Synk\Backend)
+2025-11-21T16:32:56.753-03:00 DEBUG 3864 --- [message-service] [main] com.message.MessageApplication           : Running with Spring Boot v3.5.5, Spring v6.2.10
+2025-11-21T16:32:56.754-03:00  INFO 3864 --- [message-service] [main] com.message.MessageApplication           : The following 1 profile is active: "dev"
+2025-11-21T16:32:57.561-03:00  INFO 3864 --- [message-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-11-21T16:32:57.685-03:00  INFO 3864 --- [message-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 108 ms. Found 2 JPA repository interfaces.
+2025-11-21T16:32:58.894-03:00  INFO 3864 --- [message-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-11-21T16:32:58.916-03:00  INFO 3864 --- [message-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-11-21T16:32:58.917-03:00  INFO 3864 --- [message-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.44]
+2025-11-21T16:32:59.011-03:00  INFO 3864 --- [message-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-11-21T16:32:59.012-03:00  INFO 3864 --- [message-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2182 ms
+2025-11-21T16:32:59.284-03:00 DEBUG 3864 --- [message-service] [main] j.LocalContainerEntityManagerFactoryBean : Building JPA container EntityManagerFactory for persistence unit 'default'
+2025-11-21T16:32:59.303-03:00  INFO 3864 --- [message-service] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-21T16:32:59.352-03:00  INFO 3864 --- [message-service] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.26.Final
+2025-11-21T16:32:59.383-03:00  INFO 3864 --- [message-service] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-11-21T16:32:59.811-03:00  INFO 3864 --- [message-service] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-11-21T16:32:59.878-03:00  INFO 3864 --- [message-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-11-21T16:33:00.100-03:00  INFO 3864 --- [message-service] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:ec585eff-a4cf-4bf3-a97a-98a0a3e792df user=SA
+2025-11-21T16:33:00.102-03:00  INFO 3864 --- [message-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-11-21T16:33:00.130-03:00  WARN 3864 --- [message-service] [main] org.hibernate.dialect.Dialect            : HHH000511: The 2.3.232 version for [org.hibernate.dialect.PostgreSQLDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 12.0.0. Check the community dialects project for available legacy versions.
+2025-11-21T16:33:00.136-03:00  WARN 3864 --- [message-service] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-21T16:33:00.173-03:00  INFO 3864 --- [message-service] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-11-21T16:33:01.173-03:00  INFO 3864 --- [message-service] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-21T16:33:01.368-03:00  INFO 3864 --- [message-service] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-11-21T16:33:01.798-03:00  INFO 3864 --- [message-service] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-11-21T16:33:03.926-03:00  WARN 3864 --- [message-service] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-11-21T16:33:05.209-03:00  INFO 3864 --- [message-service] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2025-11-21T16:33:05.354-03:00  INFO 3864 --- [message-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-11-21T16:33:05.382-03:00  INFO 3864 --- [message-service] [main] com.message.MessageApplication           : Started MessageApplication in 9.211 seconds (process running for 9.583)
+2025-11-21T16:33:15.022-03:00  INFO 3864 --- [message-service] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-11-21T16:33:15.048-03:00  INFO 3864 --- [message-service] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-11-21T16:33:15.063-03:00  INFO 3864 --- [message-service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-11-21T16:33:15.068-03:00  INFO 3864 --- [message-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-11-21T16:33:15.071-03:00  INFO 3864 --- [message-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-11-21T16:34:27.858-03:00  INFO 16748 --- [message-service] [main] com.message.MessageApplication           : Starting MessageApplication using Java 25 with PID 16748 (C:\Users\HP Pavilion Gaming\Documents\GitHub\Synk\Backend\target\classes started by HP Pavilion Gaming in C:\Users\HP Pavilion Gaming\Documents\GitHub\Synk\Backend)
+2025-11-21T16:34:27.860-03:00 DEBUG 16748 --- [message-service] [main] com.message.MessageApplication           : Running with Spring Boot v3.5.5, Spring v6.2.10
+2025-11-21T16:34:27.861-03:00  INFO 16748 --- [message-service] [main] com.message.MessageApplication           : The following 1 profile is active: "dev"
+2025-11-21T16:34:28.610-03:00  INFO 16748 --- [message-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-11-21T16:34:28.709-03:00  INFO 16748 --- [message-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 89 ms. Found 2 JPA repository interfaces.
+2025-11-21T16:34:29.728-03:00  INFO 16748 --- [message-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-11-21T16:34:29.758-03:00  INFO 16748 --- [message-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-11-21T16:34:29.758-03:00  INFO 16748 --- [message-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.44]
+2025-11-21T16:34:29.835-03:00  INFO 16748 --- [message-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-11-21T16:34:29.835-03:00  INFO 16748 --- [message-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1899 ms
+2025-11-21T16:34:30.084-03:00 DEBUG 16748 --- [message-service] [main] j.LocalContainerEntityManagerFactoryBean : Building JPA container EntityManagerFactory for persistence unit 'default'
+2025-11-21T16:34:30.103-03:00  INFO 16748 --- [message-service] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-21T16:34:30.153-03:00  INFO 16748 --- [message-service] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.26.Final
+2025-11-21T16:34:30.183-03:00  INFO 16748 --- [message-service] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-11-21T16:34:30.460-03:00  INFO 16748 --- [message-service] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-11-21T16:34:30.493-03:00  INFO 16748 --- [message-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-11-21T16:34:30.663-03:00  INFO 16748 --- [message-service] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:36a3a6d5-9b38-44ad-bfc5-a1645f584dcf user=SA
+2025-11-21T16:34:30.665-03:00  INFO 16748 --- [message-service] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-11-21T16:34:30.684-03:00  WARN 16748 --- [message-service] [main] org.hibernate.dialect.Dialect            : HHH000511: The 2.3.232 version for [org.hibernate.dialect.PostgreSQLDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 12.0.0. Check the community dialects project for available legacy versions.
+2025-11-21T16:34:30.689-03:00  WARN 16748 --- [message-service] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-21T16:34:30.712-03:00  INFO 16748 --- [message-service] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-11-21T16:34:31.556-03:00  INFO 16748 --- [message-service] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-21T16:34:31.666-03:00  INFO 16748 --- [message-service] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-11-21T16:34:32.022-03:00  INFO 16748 --- [message-service] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-11-21T16:34:33.346-03:00  WARN 16748 --- [message-service] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-11-21T16:34:34.217-03:00  INFO 16748 --- [message-service] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2025-11-21T16:34:34.336-03:00  INFO 16748 --- [message-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-11-21T16:34:34.351-03:00  INFO 16748 --- [message-service] [main] com.message.MessageApplication           : Started MessageApplication in 7.114 seconds (process running for 7.484)
+2025-11-21T16:35:06.167-03:00  INFO 16748 --- [message-service] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-11-21T16:35:06.168-03:00  INFO 16748 --- [message-service] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-11-21T16:35:06.169-03:00  INFO 16748 --- [message-service] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-11-21T16:35:06.213-03:00 DEBUG 16748 --- [message-service] [http-nio-8080-exec-1] o.j.s.OpenEntityManagerInViewInterceptor : Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-11-21T16:35:06.308-03:00 DEBUG 16748 --- [message-service] [http-nio-8080-exec-1] o.j.s.OpenEntityManagerInViewInterceptor : Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-11-21T16:35:07.777-03:00 DEBUG 16748 --- [message-service] [http-nio-8080-exec-2] o.j.s.OpenEntityManagerInViewInterceptor : Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-11-21T16:35:07.883-03:00 DEBUG 16748 --- [message-service] [http-nio-8080-exec-2] o.j.s.OpenEntityManagerInViewInterceptor : Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-11-21T16:35:07.894-03:00 DEBUG 16748 --- [message-service] [http-nio-8080-exec-3] o.j.s.OpenEntityManagerInViewInterceptor : Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-11-21T16:35:07.899-03:00 DEBUG 16748 --- [message-service] [http-nio-8080-exec-3] o.j.s.OpenEntityManagerInViewInterceptor : Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-11-21T16:35:09.997-03:00 DEBUG 16748 --- [message-service] [http-nio-8080-exec-4] o.j.s.OpenEntityManagerInViewInterceptor : Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-11-21T16:35:09.998-03:00 DEBUG 16748 --- [message-service] [http-nio-8080-exec-4] o.j.s.OpenEntityManagerInViewInterceptor : Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-11-21T16:35:10.005-03:00 DEBUG 16748 --- [message-service] [http-nio-8080-exec-6] o.j.s.OpenEntityManagerInViewInterceptor : Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-11-21T16:35:10.014-03:00 DEBUG 16748 --- [message-service] [http-nio-8080-exec-6] o.j.s.OpenEntityManagerInViewInterceptor : Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-11-21T16:35:12.138-03:00 DEBUG 16748 --- [message-service] [http-nio-8080-exec-5] o.j.s.OpenEntityManagerInViewInterceptor : Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-11-21T16:35:12.140-03:00 DEBUG 16748 --- [message-service] [http-nio-8080-exec-5] o.j.s.OpenEntityManagerInViewInterceptor : Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-11-21T16:35:14.016-03:00 DEBUG 16748 --- [message-service] [http-nio-8080-exec-7] o.j.s.OpenEntityManagerInViewInterceptor : Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-11-21T16:35:14.019-03:00 DEBUG 16748 --- [message-service] [http-nio-8080-exec-7] o.j.s.OpenEntityManagerInViewInterceptor : Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-11-21T16:35:14.380-03:00 DEBUG 16748 --- [message-service] [http-nio-8080-exec-8] o.j.s.OpenEntityManagerInViewInterceptor : Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-11-21T16:35:14.383-03:00 DEBUG 16748 --- [message-service] [http-nio-8080-exec-8] o.j.s.OpenEntityManagerInViewInterceptor : Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-11-21T16:35:29.515-03:00 DEBUG 16748 --- [message-service] [http-nio-8080-exec-9] o.j.s.OpenEntityManagerInViewInterceptor : Opening JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-11-21T16:35:29.516-03:00 DEBUG 16748 --- [message-service] [http-nio-8080-exec-9] o.j.s.OpenEntityManagerInViewInterceptor : Closing JPA EntityManager in OpenEntityManagerInViewInterceptor
+2025-11-21T16:46:57.304-03:00  INFO 16748 --- [message-service] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-11-21T16:46:57.348-03:00  INFO 16748 --- [message-service] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-11-21T16:46:57.359-03:00  INFO 16748 --- [message-service] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-11-21T16:46:57.361-03:00  INFO 16748 --- [message-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-11-21T16:46:57.363-03:00  INFO 16748 --- [message-service] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
