@@ -29,34 +29,16 @@ public class MessageService {
         this.messageRepositoryImpl = messageRepositoryImpl;
     }
 
+
     public Message sendMessage(UserId senderId, UserId receiverId, String content) {
-        // Validar que el contenido no esté vacío
-        if (content == null || content.trim().isEmpty()) {
-            throw new IllegalArgumentException("Message content cannot be empty");
-        }
+       // La lógica de validación se ha extraído a métodos privados para mayor claridad
+        validateContentIsPresent(content);
+        validateNotSendingToSelf(senderId, receiverId);
+        
+        Optional<User> senderOpt = validateSenderExists(senderId);
+        Optional<User> receiverOpt = validateReceiverExists(receiverId);
 
-        // Verificar que el sender existe
-        Optional<User> senderOpt = userRepository.findById(senderId);
-        if (senderOpt.isEmpty()) {
-            throw new IllegalArgumentException("Sender not found with id: " + senderId);
-        }
-
-        // Verificar que el receiver existe
-        Optional<User> receiverOpt = userRepository.findById(receiverId);
-        if (receiverOpt.isEmpty()) {
-            throw new IllegalArgumentException("Receiver not found with id: " + receiverId);
-        }
-
-        // Verificar que no sea el mismo usuario
-        if (senderId.equals(receiverId)) {
-            throw new IllegalArgumentException("Cannot send message to yourself");
-        }
-
-        // Verificar que el receptor puede recibir mensajes
-        User receiver = receiverOpt.get();
-        if (!receiver.canReceiveMessage(senderId)) {
-            throw new IllegalArgumentException("Receiver cannot receive messages at this time");
-        }
+        validateReceiverCanReceive(receiverOpt.get(), senderId);
 
         Message message = new Message(senderId, receiverId, content.trim());
         return messageRepository.save(message);
@@ -66,25 +48,15 @@ public class MessageService {
         return messageRepository.findById(messageId);
     }
 
-    // Obtener historial de conversación entre dos usuarios
     public List<Message> getConversationHistory(UserId user1Id, UserId user2Id) {
-        // Verificar que ambos usuarios existan
-        if (!userRepository.findById(user1Id).isPresent()) {
-            throw new IllegalArgumentException("User not found with id: " + user1Id);
-        }
-        if (!userRepository.findById(user2Id).isPresent()) {
-            throw new IllegalArgumentException("User not found with id: " + user2Id);
-        }
+        validateUserExists(user1Id);
+        validateUserExists(user2Id);
 
         return messageRepository.findConversationHistory(user1Id, user2Id);
     }
 
-    // Obtener mensajes no leídos para un usuario
     public List<Message> getUnreadMessages(UserId userId) {
-        // Verificar que el usuario existe
-        if (!userRepository.findById(userId).isPresent()) {
-            throw new IllegalArgumentException("User not found with id: " + userId);
-        }
+        validateUserExists(userId);
 
         return messageRepositoryImpl.findUnreadMessagesByUserId(userId);
     }
@@ -97,7 +69,6 @@ public class MessageService {
 
         Message message = messageOpt.get();
 
-        // Verificar que el usuario es el receptor del mensaje
         if (!message.getReceiverId().equals(userId)) {
             throw new IllegalArgumentException("User is not the receiver of this message");
         }
@@ -105,73 +76,45 @@ public class MessageService {
         messageRepositoryImpl.markMessageAsRead(messageId);
     }
 
-    // Marcar todos los mensajes de una conversación como leídos
     public void markConversationAsRead(UserId receiverId, UserId senderId) {
-        // Verificar que ambos usuarios existan
-        if (!userRepository.findById(receiverId).isPresent()) {
-            throw new IllegalArgumentException("Receiver not found with id: " + receiverId);
-        }
-        if (!userRepository.findById(senderId).isPresent()) {
-            throw new IllegalArgumentException("Sender not found with id: " + senderId);
-        }
+        validateReceiverExists(receiverId);
+        validateSenderExists(senderId);
 
         messageRepositoryImpl.markAllMessagesAsRead(senderId, receiverId);
     }
 
-    // Obtener contactos de conversación de un usuario
+   
     public List<UserId> getConversationPartners(UserId userId) {
-        // Verificar que el usuario existe
-        if (!userRepository.findById(userId).isPresent()) {
-            throw new IllegalArgumentException("User not found with id: " + userId);
-        }
+        validateUserExists(userId);
 
         return messageRepositoryImpl.findConversationPartners(userId);
     }
 
-    // Obtener mensajes enviados por un usuario
     public List<Message> getMessagesSentByUser(UserId userId) {
-        // Verificar que el usuario existe
-        if (!userRepository.findById(userId).isPresent()) {
-            throw new IllegalArgumentException("User not found with id: " + userId);
-        }
+        validateUserExists(userId);
 
         return messageRepositoryImpl.findMessagesSentByUser(userId);
     }
 
-    // Obtener mensajes recibidos por un usuario
     public List<Message> getMessagesReceivedByUser(UserId userId) {
-        // Verificar que el usuario existe
-        if (!userRepository.findById(userId).isPresent()) {
-            throw new IllegalArgumentException("User not found with id: " + userId);
-        }
+        validateUserExists(userId);
 
         return messageRepositoryImpl.findMessagesReceivedByUser(userId);
     }
 
-    // Obtener el último mensaje entre dos usuarios
     public Optional<Message> getLastMessageBetweenUsers(UserId user1Id, UserId user2Id) {
-        // Verificar que ambos usuarios existan
-        if (!userRepository.findById(user1Id).isPresent()) {
-            throw new IllegalArgumentException("User not found with id: " + user1Id);
-        }
-        if (!userRepository.findById(user2Id).isPresent()) {
-            throw new IllegalArgumentException("User not found with id: " + user2Id);
-        }
+        validateUserExists(user1Id);
+        validateUserExists(user2Id);
 
         return messageRepositoryImpl.findLastMessageBetweenUsers(user1Id, user2Id);
     }
 
-    // Contar mensajes no leídos para un usuario
     public Long countUnreadMessages(UserId userId) {
-        // Verificar que el usuario existe
-        if (!userRepository.findById(userId).isPresent()) {
-            throw new IllegalArgumentException("User not found with id: " + userId);
-        }
+        validateUserExists(userId);
 
         return messageRepositoryImpl.countUnreadMessages(userId);
     }
 
-    // Verificar si un mensaje pertenece a un usuario (como sender o receiver)
     public boolean isUserPartOfMessage(UserId userId, MessageId messageId) {
         Optional<Message> messageOpt = messageRepository.findById(messageId);
         if (messageOpt.isEmpty()) {
@@ -182,23 +125,17 @@ public class MessageService {
         return message.getSenderId().equals(userId) || message.getReceiverId().equals(userId);
     }
 
-    // Buscar mensajes por contenido (podría implementarse en el repository)
     public List<Message> searchMessagesByContent(UserId userId, String searchTerm) {
         if (searchTerm == null || searchTerm.trim().isEmpty()) {
             throw new IllegalArgumentException("Search term cannot be empty");
         }
 
-        // Verificar que el usuario existe
-        if (!userRepository.findById(userId).isPresent()) {
-            throw new IllegalArgumentException("User not found with id: " + userId);
-        }
+        validateUserExists(userId);
 
-        // Esta funcionalidad requeriría un método adicional en el repository
-        // Por ahora, devuelvo una lista vacía como placeholder
+        // Implementar búsqueda de contenido en MessageRepository
         return List.of();
     }
 
-    // Eliminar un mensaje (soft delete podría implementarse)
     public void deleteMessage(MessageId messageId, UserId userId) {
         Optional<Message> messageOpt = messageRepository.findById(messageId);
         if (messageOpt.isEmpty()) {
@@ -207,22 +144,16 @@ public class MessageService {
 
         Message message = messageOpt.get();
 
-        // Verificar que el usuario es el sender del mensaje
         if (!message.getSenderId().equals(userId)) {
             throw new IllegalArgumentException("Only the sender can delete a message");
         }
 
-        // Aquí implementarías la lógica de eliminación
-        // Podría ser un soft delete añadiendo un campo 'deleted' al mensaje
+        // Implementar lógica de Soft Delete
         throw new UnsupportedOperationException("Message deletion not yet implemented");
     }
 
-    // Obtener estadísticas de mensajes para un usuario
     public MessageStatistics getMessageStatistics(UserId userId) {
-        // Verificar que el usuario existe
-        if (!userRepository.findById(userId).isPresent()) {
-            throw new IllegalArgumentException("User not found with id: " + userId);
-        }
+        validateUserExists(userId);
 
         long sentMessages = messageRepositoryImpl.findMessagesSentByUser(userId).size();
         long receivedMessages = messageRepositoryImpl.findMessagesReceivedByUser(userId).size();
@@ -230,6 +161,51 @@ public class MessageService {
         long conversationPartners = messageRepositoryImpl.findConversationPartners(userId).size();
 
         return new MessageStatistics(sentMessages, receivedMessages, unreadMessages, conversationPartners);
+    }
+
+    // *************************************************************
+    // Refact - MÉTODOS DE VALIDACIÓN EXTRAÍDOS (Reemplazan comentarios en la lógica)
+    // *************************************************************
+
+    private void validateContentIsPresent(String content) {
+        if (content == null || content.trim().isEmpty()) {
+            throw new IllegalArgumentException("Message content cannot be empty");
+        }
+    }
+
+    private void validateNotSendingToSelf(UserId senderId, UserId receiverId) {
+        if (senderId.equals(receiverId)) {
+            throw new IllegalArgumentException("Cannot send message to yourself");
+        }
+    }
+    
+    // NOTA: Se combina la verificación de existencia para Sender y Receiver
+    private Optional<User> validateSenderExists(UserId senderId) {
+        Optional<User> senderOpt = userRepository.findById(senderId);
+        if (senderOpt.isEmpty()) {
+            throw new IllegalArgumentException("Sender not found with id: " + senderId);
+        }
+        return senderOpt;
+    }
+    
+    private Optional<User> validateReceiverExists(UserId receiverId) {
+        Optional<User> receiverOpt = userRepository.findById(receiverId);
+        if (receiverOpt.isEmpty()) {
+            throw new IllegalArgumentException("Receiver not found with id: " + receiverId);
+        }
+        return receiverOpt;
+    }
+
+    private void validateReceiverCanReceive(User receiver, UserId senderId) {
+        if (!receiver.canReceiveMessage(senderId)) {
+            throw new IllegalArgumentException("Receiver cannot receive messages at this time");
+        }
+    }
+    
+    private void validateUserExists(UserId userId) {
+        if (!userRepository.findById(userId).isPresent()) {
+            throw new IllegalArgumentException("User not found with id: " + userId);
+        }
     }
 
     // Clase interna para estadísticas

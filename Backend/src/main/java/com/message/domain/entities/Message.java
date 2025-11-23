@@ -7,14 +7,15 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
- * representa un mensaje entre usuarios
- * NOTA: hay varios constructores porque agregue funcionalidades sobre la marcha
+ * Representa un mensaje inmutable entre usuarios en el dominio.
+ * NOTA: La existencia de múltiples constructores es una deuda técnica a refactorizar
+ * con un patrón como Builder o Factory Methods.
  */
 public class Message {
     private MessageId messageId;
     private UserId senderId;
     private UserId receiverId;
-    private String content; // TODO: Validar longitud máxima del contenido
+    private String content; // Validar longitud máxima del contenido
     private LocalDateTime timestamp;
     private MessageType messageType;
     private boolean isRead;
@@ -37,7 +38,7 @@ public class Message {
         this.receiverId = Objects.requireNonNull(receiverId, "ReceiverId cannot be null");
         this.content = Objects.requireNonNull(content, "Content cannot be null");
         this.timestamp = LocalDateTime.now();
-        this.isRead = false; // Obvio que empieza sin leer
+        this.isRead = false;
     }
 
     // Constructor que cree para el mapper (probablemente se puede refactorizar)
@@ -65,12 +66,10 @@ public class Message {
         this.isRead = true;
     }
 
-    // Helper para verificar si el mensaje es de un usuario especifico
     public boolean isFromUser(UserId userId) {
         return this.senderId.equals(userId);
     }
 
-    // Helper para verificar si el mensaje es para un usuario especifico
     public boolean isToUser(UserId userId) {
         return this.receiverId.equals(userId);
     }
