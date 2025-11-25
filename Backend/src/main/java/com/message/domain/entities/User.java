@@ -7,11 +7,21 @@ import java.util.Objects;
 
 public class User {
     private UserId id;
-    private String username; // unico
-    private String email;    // unico
+    private String username;
+    private String email;
+    private String passwordHash;
     private UserStatus status;
     private LocalDateTime lastSeen;
 
+    public User(String username, String email, String passwordHash) {
+        this.id = UserId.temporary();
+        this.username = Objects.requireNonNull(username, "Username cannot be null");
+        this.email = Objects.requireNonNull(email, "Email cannot be null");
+        this.passwordHash = Objects.requireNonNull(passwordHash, "Password cannot be null");
+        this.status = UserStatus.OFFLINE;
+        this.lastSeen = LocalDateTime.now();
+    }
+    
     // Constructor para usuarios que ya existen en BD
     public User(UserId id, String username, String email, UserStatus status, LocalDateTime lastSeen) {
         this.id = Objects.requireNonNull(id, "UserId cannot be null");
@@ -87,6 +97,7 @@ public class User {
     public String getEmail() {return email;}
     public UserStatus getStatus() {return status;}
     public LocalDateTime getLastSeen() {return lastSeen;}
+    public String getPasswordHash() { return passwordHash; }
 
     @Override
     public boolean equals(Object object) {

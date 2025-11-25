@@ -61,12 +61,10 @@ public class UserController {
         this.userMapper = userMapper;
     }
 
-
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
         Optional<User> user = getUserById.execute(UserId.from(id));
         
-        //u porque user se duplica como vairable
         if (user.isPresent()) {
             User u = user.get();
             UserDTO dto = UserDTO.forResponse(
@@ -138,8 +136,15 @@ public class UserController {
             if (userDTO.getEmail() == null || userDTO.getEmail().trim().isEmpty()) {
                 return ResponseEntity.badRequest().body("Email is required");
             }
+            if (userDTO.getPassword() == null || userDTO.getPassword().length() < 8) {
+                return ResponseEntity.badRequest().body("Password must be at least 8 characters");
+            }
 
-            User savedUser = createUser.execute(userDTO.getUsername(), userDTO.getEmail());
+            User savedUser = createUser.execute(
+                userDTO.getUsername(), 
+                userDTO.getEmail(),
+                userDTO.getPassword()
+            );
 
             UserDTO response = UserDTO.forResponse(
                 savedUser.getId().value(),
@@ -180,7 +185,6 @@ public class UserController {
         try {
             setUserOnline.execute(UserId.from(id));
 
-            // Obtener el usuario actualizado
             Optional<User> userOpt = getUserById.execute(UserId.from(id));
             if (userOpt.isEmpty()) {
                 return ResponseEntity.notFound().build();

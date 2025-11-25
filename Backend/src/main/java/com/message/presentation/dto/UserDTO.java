@@ -8,11 +8,13 @@ public class UserDTO {
     private Long id;
     private String username;
     private String email;
+    private String password; // Solo para registro/login, NO DEVOLVER EN RESPONSE
     private UserStatus status;
     private LocalDateTime lastSeen;
 
     public UserDTO() {}
 
+    // Constructor completo para responses
     public UserDTO(Long id, String username, String email, UserStatus status, LocalDateTime lastSeen) {
         this.id = id;
         this.username = username;
@@ -22,9 +24,10 @@ public class UserDTO {
     }
 
     // Constructor para registro (con password, sin id)
-    public UserDTO(String username, String email) {
+    public UserDTO(String username, String email, String password) {
         this.username = username;
         this.email = email;
+        this.password = password;
     }
 
     // Método para crear DTO de respuesta
@@ -40,6 +43,9 @@ public class UserDTO {
 
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
+
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
 
     public UserStatus getStatus() { return status; }
     public void setStatus(UserStatus status) { this.status = status; }
