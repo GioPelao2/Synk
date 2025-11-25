@@ -35,8 +35,9 @@ public User execute(String username, String email, String password) {
     String passwordHash = hashPassword(password);
     User newUser = new User(username, email, passwordHash);
     return userRepository.saveUser(newUser);
-}
+    }
 
-private String hashPassword(String password) {
-    return BCrypt.hashpw(password, BCrypt.gensalt());
-}}
+    private String hashPassword(String password) {
+        return BCrypt.hashpw(password, BCrypt.gensalt());
+    }
+}
