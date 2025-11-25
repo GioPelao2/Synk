@@ -1,6 +1,6 @@
 import { error } from "console";
 
-const BASE_URL = 'http://localhost:8080';
+const BASE_URL = 'https://backend-synk.giovanny.cl';
 
 const LOGIN_URL = `${BASE_URL}/login`;
 
