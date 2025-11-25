@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState} from 'react';
 import styles from '@/styles/auth.module.css';
 import Link from "next/link";
 
@@ -8,7 +8,8 @@ interface RegisterViewProps {
 }
 
 const RegisterView: React.FC<RegisterViewProps> = ({ onRegistrationSuccess, onSwitchToLogin}) => {
-
+    const [usernameOrEmail, setUsernameOrEmail] = useState('');
+    const [password, setPassword] = useState('');
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         onRegistrationSuccess();
@@ -16,7 +17,23 @@ const RegisterView: React.FC<RegisterViewProps> = ({ onRegistrationSuccess, onSw
 
     return (
         <form className={styles.authForm} onSubmit={handleSubmit}>
-            <h2 style={{ color: 'white' }}>Vista de Registro (Pendiente)</h2>
+            <input
+            type="text"
+            placeholder="Email o Nombre de Usuario"
+            className={styles.inputField}
+            value={usernameOrEmail}
+            onChange={(e) => setUsernameOrEmail(e.target.value)}
+            required
+            />
+
+            <input
+            type="password"
+            placeholder="Contraseña"
+            className={styles.inputField}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            />
             <button type="submit" className={styles.authButton}>
                 REGISTRAR CUENTA
             </button>
