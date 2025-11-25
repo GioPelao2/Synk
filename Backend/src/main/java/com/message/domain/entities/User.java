@@ -5,9 +5,6 @@ import com.message.domain.enums.UserStatus;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-/*
- * TODO: Agregar campos como avatar, nombre completo, etc.
- */
 public class User {
     private UserId id;
     private String username; // unico
@@ -35,7 +32,6 @@ public class User {
 
     /*
      * Método para asignar ID real despues de guardar en BD
-     * similar al de Message, funciona bien
      */
     public User withId(UserId newId) {
         if (!this.id.isTemporary()) {
@@ -57,13 +53,6 @@ public class User {
 
     public void goAway() {
         this.status = UserStatus.AWAY; // Cuando está inactivo pero conectado, posiblemente automatico
-        this.lastSeen = LocalDateTime.now();
-    }
-
-    // Método genérico para cambiar estado ¿removible?
-    public void changeStatus(UserStatus newStatus) {
-        Objects.requireNonNull(newStatus, "UserStatus cannot be null");
-        this.status = newStatus;
         this.lastSeen = LocalDateTime.now();
     }
 

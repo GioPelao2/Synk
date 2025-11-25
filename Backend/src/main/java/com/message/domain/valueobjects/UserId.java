@@ -5,10 +5,17 @@ import java.util.Objects;
 public final class UserId {
     private final Long value;
 
+    
     private UserId(Long value) {
-        if (value == null || value < 0) {
-            throw new IllegalArgumentException("UserId must be a positive number");
+        if (value == null) {
+            throw new IllegalArgumentException("UserId cannot be null");
         }
+
+        // permitir ID temporal de -1
+        if (value == 0) {
+            throw new IllegalArgumentException("UserId cannot be 0");
+        }
+
         this.value = value;
     }
 
