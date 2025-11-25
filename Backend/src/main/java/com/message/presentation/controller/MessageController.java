@@ -19,17 +19,14 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/messages")
-@CrossOrigin(origins = "*")
 public class MessageController {
 
-    // ==================== USE CASES ====================
     private final SendMessage sendMessage;
     private final GetMessageById getMessageById;
     private final MarkMessageAsRead markMessageAsRead;
     private final MarkAllMessagesAsRead markAllMessagesAsRead;
     private final GetConversationHistory getConversationHistory;
     private final GetUnreadMessagesCount getUnreadMessagesCount;
-    
     private final GetUserById getUserById;
 
     @Autowired
@@ -53,7 +50,6 @@ public class MessageController {
     @PostMapping("/send")
     public ResponseEntity<?> sendMessage(@RequestBody MessageDTO messageDTO) {
         try {
-            // Validación básica
             if (messageDTO.getContent() == null || messageDTO.getContent().trim().isEmpty()) {
                 return ResponseEntity.badRequest().body("Content cannot be empty");
             }
@@ -75,6 +71,7 @@ public class MessageController {
             Message savedMessage = sendMessage.execute(senderId, receiverId, messageDTO.getContent());
 
             MessageDTO response = new MessageDTO(savedMessage);
+            
             response.setSenderUsername(sender.get().getUsername());
             response.setReceiverUsername(receiver.get().getUsername());
 
@@ -95,6 +92,7 @@ public class MessageController {
             }
 
             MessageDTO dto = new MessageDTO(message.get());
+            
             return ResponseEntity.ok(dto);
 
         } catch (IllegalArgumentException e) {
