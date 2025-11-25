@@ -3,6 +3,7 @@ import { error } from "console";
 const BASE_URL = 'https://backend-synk.giovanny.cl';
 
 const LOGIN_URL = `${BASE_URL}/login`;
+const REGISTER_URL = `${BASE_URL}/api/users/register`;
 
 export async function loginUser(username: string, password: string) {
     try {
@@ -92,5 +93,49 @@ export async function getConversationHistory(userId1: number, userId2: number) {
     } catch (error) {
         console.error("Error en la llamada a getConversationHistory", error);
         return [];
+    }    
+}
+
+// --- [ FUNCIÓN 4: registerUser ] ---
+export async function registerUser(username: string, email: string) {
+    try {
+        const response = await fetch(REGISTER_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: username, 
+                email: email, 
+            }),
+        });
+
+        if (!response.ok) {
+            const errorBodyText = await response.text();
+            let errorMessage = `Fallo al registrar la cuenta. Código: ${response.status} ${response.statusText}`;
+
+            try {
+                const errorData = JSON.parse(errorBodyText);
+                errorMessage = errorData.message || errorMessage;
+            } catch (e) {
+            }
+            
+            throw new Error(errorMessage);
+        }
+
+        const data = await response.json(); 
+        
+        return { success: true, data };
+
+    } catch (error) {
+        console.error("Error en la llamada a registerUser:", error);
+        throw error;
     }
 }
+
+
+
+
+
+
+
