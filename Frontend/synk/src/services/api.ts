@@ -58,7 +58,7 @@ export async function getOnlineUsers() {
     }
 
     try{
-        const response = await fetch(`${BASE_URL}/api/users/online`, {
+        const response = await fetch(`${BASE_URL}/api/users`, {
            // headers: {
              //   'Authorization': `Bearer ${token}`,
             //},
