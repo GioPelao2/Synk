@@ -23,7 +23,7 @@ public class User {
 
     // Constructor para usuarios nuevos (registro)
     public User(String username, String email) {
-        this.id = UserId.newId(); // ID temporal hasta que se guarde en BD
+        this.id = UserId.temporary(); // ID temporal hasta que se guarde en BD
         this.username = Objects.requireNonNull(username, "Username cannot be null");
         this.email = Objects.requireNonNull(email, "Email cannot be null");
         this.status = UserStatus.OFFLINE;
