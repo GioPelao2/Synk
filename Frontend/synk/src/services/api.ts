@@ -97,7 +97,7 @@ export async function getConversationHistory(userId1: number, userId2: number) {
 }
 
 // --- [ FUNCIÓN 4: registerUser ] ---
-export async function registerUser(username: string, email: string) {
+export async function registerUser(username: string, email: string, password: string) {
     try {
         const response = await fetch(REGISTER_URL, {
             method: 'POST',
@@ -106,7 +106,8 @@ export async function registerUser(username: string, email: string) {
             },
             body: JSON.stringify({
                 username: username, 
-                email: email, 
+                email: email,
+                password: password, // Agregado el campo password requerido
             }),
         });
 
@@ -116,8 +117,11 @@ export async function registerUser(username: string, email: string) {
 
             try {
                 const errorData = JSON.parse(errorBodyText);
-                errorMessage = errorData.message || errorMessage;
+                // El backend devuelve strings directamente en algunos casos
+                errorMessage = typeof errorData === 'string' ? errorData : (errorData.message || errorMessage);
             } catch (e) {
+                // Si no es JSON, usa el texto plano del error
+                errorMessage = errorBodyText || errorMessage;
             }
             
             throw new Error(errorMessage);
