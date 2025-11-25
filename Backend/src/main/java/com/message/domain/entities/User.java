@@ -5,7 +5,7 @@ import com.message.domain.enums.UserStatus;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-/**
+/*
  * TODO: Agregar campos como avatar, nombre completo, etc.
  */
 public class User {
@@ -33,7 +33,7 @@ public class User {
         this.lastSeen = LocalDateTime.now();
     }
 
-    /**
+    /*
      * Método para asignar ID real despues de guardar en BD
      * similar al de Message, funciona bien
      */
@@ -67,7 +67,7 @@ public class User {
         this.lastSeen = LocalDateTime.now();
     }
 
-    /**
+    /*
      * Lógica de negocio: cuándo un usuario puede recibir mensajes
      * TODO: Revisar si queremos permitir mensajes a usuarios OFFLINE
      */
