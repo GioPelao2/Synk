@@ -49,6 +49,9 @@ public class UserEntity {
         this.lastSeen = lastSeen;
     }
 
+    public UserEntity() {
+    }
+
     //Getters y Setters
     public Long getId() {return id;}
     public String getUsername() {return username;}
