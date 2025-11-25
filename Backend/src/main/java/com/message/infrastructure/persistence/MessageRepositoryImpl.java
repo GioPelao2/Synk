@@ -6,29 +6,28 @@ import com.message.domain.repositories.MessageRepository;
 import com.message.domain.entities.Message;
 import com.message.domain.valueobjects.MessageId;
 import com.message.domain.valueobjects.UserId;
-import com.message.presentation.mapper.MessageMapper;
+import com.message.infrastructure.mapper.MessageEntityMapper;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-//FIXME: Arreglar los masppers (crearlos)
 @Repository
 public class MessageRepositoryImpl implements MessageRepository {
 
     private final JpaMessageRepository jpaRepository;
-    private final MessageMapper messageMapper;
+    private final MessageEntityMapper messageMapper;
 
     @Autowired
-    public MessageRepositoryImpl(JpaMessageRepository jpaRepository, MessageMapper messageMapper) {
+    public MessageRepositoryImpl(JpaMessageRepository jpaRepository, MessageEntityMapper messageMapper) {
         this.jpaRepository = jpaRepository;
         this.messageMapper = messageMapper;
     }
 
     @Override
     public Message save(Message message) {
-        var jpaEntity = messageMapper.toJpaEntity(message);
-        var savedEntity = jpaRepository.save(jpaEntity);
+        MessageEntity jpaEntity = messageMapper.toEntity(message);
+        MessageEntity savedEntity = jpaRepository.save(jpaEntity);
         return messageMapper.toDomain(savedEntity);
     }
 
@@ -46,14 +45,13 @@ public class MessageRepositoryImpl implements MessageRepository {
                 .collect(Collectors.toList());
     }
 
-    // Métodos adicionales útiles
-    public List<Message> findUnreadMessagesByUserId(UserId userId) {
-        return jpaRepository.findUnreadMessagesByUserId(userId.value())
-                .stream()
-                .map(messageMapper::toDomain)
-                .collect(Collectors.toList());
+    @Override
+    public Optional<Message> findLastMessageBetweenUsers(UserId id1, UserId id2) {
+        return jpaRepository.findLastMessageBetweenUsers(id1.value(), id2.value())
+                .map(messageMapper::toDomain);
     }
 
+    @Override
     public List<UserId> findConversationPartners(UserId userId) {
         return jpaRepository.findConversationPartners(userId.value())
                 .stream()
@@ -61,44 +59,32 @@ public class MessageRepositoryImpl implements MessageRepository {
                 .collect(Collectors.toList());
     }
 
-    public List<Message> findMessagesSentByUser(UserId userId) {
-        return jpaRepository.findMessagesSentByUser(userId.value())
+    @Override
+    public List<Message> findUnreadMessagesByReceiver(UserId receiverId) {
+        return jpaRepository.findUnreadMessagesByUserId(receiverId.value())
                 .stream()
                 .map(messageMapper::toDomain)
                 .collect(Collectors.toList());
     }
 
-    public List<Message> findMessagesReceivedByUser(UserId userId) {
-        return jpaRepository.findMessagesReceivedByUser(userId.value())
+    @Override
+    public List<Message> findMessagesBySender(UserId senderId) {
+        return jpaRepository.findMessagesSentByUser(senderId.value())
                 .stream()
                 .map(messageMapper::toDomain)
                 .collect(Collectors.toList());
     }
 
-    public Optional<Message> findLastMessageBetweenUsers(UserId id1, UserId id2) {
-        return jpaRepository.findLastMessageBetweenUsers(id1.value(), id2.value())
-                .map(messageMapper::toDomain);
+    @Override
+    public List<Message> findMessagesByReceiver(UserId receiverId) {
+        return jpaRepository.findMessagesReceivedByUser(receiverId.value())
+                .stream()
+                .map(messageMapper::toDomain)
+                .collect(Collectors.toList());
     }
 
-    public Long countUnreadMessages(UserId userId) {
-        return jpaRepository.countUnreadMessages(userId.value());
-    }
-
-    public void markMessageAsRead(MessageId messageId) {
-        jpaRepository.findById(messageId.value())
-                .ifPresent(entity -> {
-                    entity.setRead(true);
-                    jpaRepository.save(entity);
-                });
-    }
-
-    public void markAllMessagesAsRead(UserId senderId, UserId receiverId) {
-        List<MessageEntity> messages = jpaRepository.findConversationHistory(senderId.value(), receiverId.value());
-        messages.forEach(message -> {
-            if (message.getReceiverId().equals(receiverId.value()) && !message.isRead()) {
-                message.setRead(true);
-            }
-        });
-        jpaRepository.saveAll(messages);
+    @Override
+    public long countUnreadMessagesByReceiver(UserId receiverId) {
+        return jpaRepository.countUnreadMessages(receiverId.value());
     }
 }

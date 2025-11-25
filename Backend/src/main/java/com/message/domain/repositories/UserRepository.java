@@ -8,21 +8,29 @@ import com.message.domain.valueobjects.UserId;
 
 public interface UserRepository {
 
-    public User saveUser(User user);
-    public Optional<User> findById(UserId id);
-
-    // Para mostrar usuarios conectados sirve para el UserId
-    // TODO: Juako
-    public List<User> findOnlineUsers();
+    User saveUser(User user);
+    
+    Optional<User> findById(UserId id);
+    
+    List<User> findAll();
+    
+    void deleteById(UserId id);
 
     Optional<User> findByUsername(String username);
+    
     Optional<User> findByEmail(String email);
-    // Validaciones para evitar duplicados
+
+    boolean existsById(UserId id);
+    
     boolean existsByUsername(String username);
+    
     boolean existsByEmail(String email);
-     /**
-     * Usuarios disponibles para recibir mensajes (ONLINE + AWAY)
-     * TODO: Considerar si incluir usuarios OFFLINE también
-     */
+
+    List<User> findOnlineUsers();
+    
     List<User> findAvailableUsers();
+    
+    List<User> findOfflineUsers();
+    
+    List<User> findAwayUsers();
 }

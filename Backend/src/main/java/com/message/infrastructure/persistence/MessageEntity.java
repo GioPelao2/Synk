@@ -2,11 +2,9 @@ package com.message.infrastructure.persistence;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Data
-@NoArgsConstructor
 @Entity
 @Table(name = "messages")
 public class MessageEntity {
@@ -38,6 +36,8 @@ public class MessageEntity {
         this.isRead = false;
     }
 
+    public MessageEntity() {}
+
     // Constructor completo (con ID)
     public MessageEntity(Long id, String message, Long senderId, Long receiverId) {
         this.id = id;
@@ -59,7 +59,6 @@ public class MessageEntity {
         this.isRead = isRead;
     }
 
-    // Getters y Setters manuales (por si no usas Lombok)
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 

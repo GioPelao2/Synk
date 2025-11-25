@@ -2,22 +2,18 @@ package com.message.domain.valueobjects;
 
 import java.util.Objects;
 
-public final class ConversationId {
+public class ConversationId {
     private final Long value;
 
     private ConversationId(Long value) {
-        if (value == null || value < 0) {
-            throw new IllegalArgumentException("ConversationId must be a positive number");
-        }
-        this.value = value;
+        this.value = Objects.requireNonNull(value, "ConversationId value cannot be null");
     }
 
     public static ConversationId from(Long value) {
+        if (value == null) {
+            throw new IllegalArgumentException("ConversationId value cannot be null");
+        }
         return new ConversationId(value);
-    }
-
-    public static ConversationId newId() {
-        return new ConversationId(-1L); // TEMPORAL se le asigna EN base a la DB
     }
 
     public Long value() {
@@ -25,14 +21,14 @@ public final class ConversationId {
     }
 
     public boolean isTemporary() {
-        return value <= 0;
+        return value.equals(-1L);
     }
 
     @Override
-    public boolean equals(Object object) {
-        if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
-        ConversationId that = (ConversationId) object;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ConversationId that = (ConversationId) o;
         return Objects.equals(value, that.value);
     }
 
@@ -43,6 +39,6 @@ public final class ConversationId {
 
     @Override
     public String toString() {
-        return "ConversationId{" + value + "}";
+        return "ConversationId{" + value + '}';
     }
 }

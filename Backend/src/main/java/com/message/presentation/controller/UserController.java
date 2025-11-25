@@ -5,136 +5,259 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.message.application.usecase.user.*;
 import com.message.domain.entities.User;
-import com.message.domain.enums.UserStatus;
 import com.message.domain.valueobjects.UserId;
-import com.message.infrastructure.persistence.UserRepositoryImpl;
 import com.message.presentation.dto.UserDTO;
+import com.message.presentation.mapper.UserMapper;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.Arrays; 
-import java.time.LocalDateTime;
-
 
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
 
+    private final CreateUser createUser;
+    private final GetUserById getUserById;
+    private final FindUserByUsername findUserByUsername;
+    private final GetOnlineUsers getOnlineUsers;
+    private final GetAllUsers getAllUsers;
+    private final SetUserOnline setUserOnline;
+    private final SetUserOffline setUserOffline;
+    private final SetUserAway setUserAway;
+    private final CheckUsernameAvailability checkUsernameAvailability;
+    private final CheckEmailAvailability checkEmailAvailability;
+    private final DeleteUser deleteUser;
+
+    private final UserMapper userMapper;
+
     @Autowired
-    private UserRepositoryImpl userRepository;
+    public UserController(
+            CreateUser createUser,
+            GetUserById getUserById,
+            FindUserByUsername findUserByUsername,
+            GetOnlineUsers getOnlineUsers,
+            GetAllUsers getAllUsers,
+            SetUserOnline setUserOnline,
+            SetUserOffline setUserOffline,
+            SetUserAway setUserAway,
+            CheckUsernameAvailability checkUsernameAvailability,
+            CheckEmailAvailability checkEmailAvailability,
+            DeleteUser deleteUser,
+            UserMapper userMapper) {
+        this.createUser = createUser;
+        this.getUserById = getUserById;
+        this.findUserByUsername = findUserByUsername;
+        this.getOnlineUsers = getOnlineUsers;
+        this.getAllUsers = getAllUsers;
+        this.setUserOnline = setUserOnline;
+        this.setUserOffline = setUserOffline;
+        this.setUserAway = setUserAway;
+        this.checkUsernameAvailability = checkUsernameAvailability;
+        this.checkEmailAvailability = checkEmailAvailability;
+        this.deleteUser = deleteUser;
+        this.userMapper = userMapper;
+    }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
-        Optional<User> user = userRepository.findById(UserId.from(id));
-
+        Optional<User> user = getUserById.execute(UserId.from(id));
+        
+        //u porque user se duplica como vairable
         if (user.isPresent()) {
             User u = user.get();
-            UserDTO dto = UserDTO.forResponse(u.getId().value(), u.getUsername(),
-                                            u.getEmail(), u.getStatus(), u.getLastSeen());
+            UserDTO dto = UserDTO.forResponse(
+                u.getId().value(),
+                u.getUsername(),
+                u.getEmail(),
+                u.getStatus(),
+                u.getLastSeen()
+            );
             return ResponseEntity.ok(dto);
         }
         return ResponseEntity.notFound().build();
     }
 
-    // Buscar usuario por username
     @GetMapping("/search")
     public ResponseEntity<UserDTO> getUserByUsername(@RequestParam String username) {
-        Optional<User> user = userRepository.findByUsername(username);
+        Optional<User> user = findUserByUsername.execute(username);
 
         if (user.isPresent()) {
             User u = user.get();
-            UserDTO dto = UserDTO.forResponse(u.getId().value(), u.getUsername(),
-                                            u.getEmail(), u.getStatus(), u.getLastSeen());
+            UserDTO dto = UserDTO.forResponse(
+                u.getId().value(),
+                u.getUsername(),
+                u.getEmail(),
+                u.getStatus(),
+                u.getLastSeen()
+            );
             return ResponseEntity.ok(dto);
         }
         return ResponseEntity.notFound().build();
     }
 
-    // Obtener usuarios online
-    @GetMapping("/online")
-    public ResponseEntity<List<UserDTO>> getOnlineUsers() {
-       UserDTO mockUser1 = UserDTO.forResponse(
-        1L, 
-        "Luchito", 
-        "lucho1234@mock.com", 
-        UserStatus.ONLINE,
-        null
-    );
-    UserDTO mockUser2 = UserDTO.forResponse(
-        2L, 
-        "Eloysito", 
-        "eloy@mock.com", 
-        UserStatus.OFFLINE, 
-        LocalDateTime.now()
-    );
-        
-        List<UserDTO> dtos = Arrays.asList(mockUser1, mockUser2);
-        /* 
-        List<User> users = userRepository.findOnlineUsers();
+    @GetMapping
+    public ResponseEntity<List<UserDTO>> getAllUsers() {
+        List<User> users = getAllUsers.execute();
         List<UserDTO> dtos = users.stream()
-            .map(user -> UserDTO.forResponse(user.getId().value(), user.getUsername(),
-                                           user.getEmail(), user.getStatus(), user.getLastSeen()))
+            .map(user -> UserDTO.forResponse(
+                user.getId().value(),
+                user.getUsername(),
+                user.getEmail(),
+                user.getStatus(),
+                user.getLastSeen()
+            ))
             .collect(Collectors.toList());
-            */
-            System.out.println("Devolviendo MOCK de usuarios online.");
         return ResponseEntity.ok(dtos);
     }
 
-    // Registrar nuevo usuario
+    @GetMapping("/online")
+    public ResponseEntity<List<UserDTO>> getOnlineUsers() {
+        List<User> users = getOnlineUsers.execute();
+        List<UserDTO> dtos = users.stream()
+            .map(user -> UserDTO.forResponse(
+                user.getId().value(),
+                user.getUsername(),
+                user.getEmail(),
+                user.getStatus(),
+                user.getLastSeen()
+            ))
+            .collect(Collectors.toList());
+        return ResponseEntity.ok(dtos);
+    }
+
     @PostMapping("/register")
-    public ResponseEntity<UserDTO> registerUser(@RequestBody UserDTO userDTO) {
-        // Validación básica
-        if (userDTO.getUsername() == null || userDTO.getEmail() == null) {
+    public ResponseEntity<?> registerUser(@RequestBody UserDTO userDTO) {
+        try {
+            if (userDTO.getUsername() == null || userDTO.getUsername().trim().isEmpty()) {
+                return ResponseEntity.badRequest().body("Username is required");
+            }
+            if (userDTO.getEmail() == null || userDTO.getEmail().trim().isEmpty()) {
+                return ResponseEntity.badRequest().body("Email is required");
+            }
+
+            User savedUser = createUser.execute(userDTO.getUsername(), userDTO.getEmail());
+
+            UserDTO response = UserDTO.forResponse(
+                savedUser.getId().value(),
+                savedUser.getUsername(),
+                savedUser.getEmail(),
+                savedUser.getStatus(),
+                savedUser.getLastSeen()
+            );
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/check-username")
+    public ResponseEntity<Boolean> checkUsernameAvailability(@RequestParam String username) {
+        try {
+            boolean available = checkUsernameAvailability.execute(username);
+            return ResponseEntity.ok(available);
+        } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().build();
         }
+    }
 
-        if (userRepository.existsByUsername(userDTO.getUsername()) ||
-            userRepository.existsByEmail(userDTO.getEmail())) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+    @GetMapping("/check-email")
+    public ResponseEntity<Boolean> checkEmailAvailability(@RequestParam String email) {
+        try {
+            boolean available = checkEmailAvailability.execute(email);
+            return ResponseEntity.ok(available);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().build();
         }
-
-        User newUser = new User(userDTO.getUsername(), userDTO.getEmail());
-        User savedUser = userRepository.saveUser(newUser);
-
-        UserDTO response = UserDTO.forResponse(savedUser.getId().value(), savedUser.getUsername(),
-                                              savedUser.getEmail(), savedUser.getStatus(), savedUser.getLastSeen());
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PutMapping("/{id}/online")
     public ResponseEntity<UserDTO> setUserOnline(@PathVariable Long id) {
-        Optional<User> userOpt = userRepository.findById(UserId.from(id));
+        try {
+            setUserOnline.execute(UserId.from(id));
 
-        if (userOpt.isEmpty()) {
+            // Obtener el usuario actualizado
+            Optional<User> userOpt = getUserById.execute(UserId.from(id));
+            if (userOpt.isEmpty()) {
+                return ResponseEntity.notFound().build();
+            }
+
+            User user = userOpt.get();
+            UserDTO response = UserDTO.forResponse(
+                user.getId().value(),
+                user.getUsername(),
+                user.getEmail(),
+                user.getStatus(),
+                user.getLastSeen()
+            );
+            return ResponseEntity.ok(response);
+
+        } catch (IllegalArgumentException e) {
             return ResponseEntity.notFound().build();
         }
-
-        User user = userOpt.get();
-        user.goOnline();
-        User updatedUser = userRepository.saveUser(user);
-
-        UserDTO response = UserDTO.forResponse(updatedUser.getId().value(), updatedUser.getUsername(),
-                                              updatedUser.getEmail(), updatedUser.getStatus(), updatedUser.getLastSeen());
-        return ResponseEntity.ok(response);
     }
 
     @PutMapping("/{id}/offline")
     public ResponseEntity<UserDTO> setUserOffline(@PathVariable Long id) {
-        Optional<User> userOpt = userRepository.findById(UserId.from(id));
+        try {
+            setUserOffline.execute(UserId.from(id));
 
-        if (userOpt.isEmpty()) {
+            Optional<User> userOpt = getUserById.execute(UserId.from(id));
+            if (userOpt.isEmpty()) {
+                return ResponseEntity.notFound().build();
+            }
+
+            User user = userOpt.get();
+            UserDTO response = UserDTO.forResponse(
+                user.getId().value(),
+                user.getUsername(),
+                user.getEmail(),
+                user.getStatus(),
+                user.getLastSeen()
+            );
+            return ResponseEntity.ok(response);
+
+        } catch (IllegalArgumentException e) {
             return ResponseEntity.notFound().build();
         }
+    }
 
-        User user = userOpt.get();
-        user.goOffline();
-        User updatedUser = userRepository.saveUser(user);
+    @PutMapping("/{id}/away")
+    public ResponseEntity<UserDTO> setUserAway(@PathVariable Long id) {
+        try {
+            setUserAway.execute(UserId.from(id));
 
-        UserDTO response = UserDTO.forResponse(updatedUser.getId().value(), updatedUser.getUsername(),
-                                              updatedUser.getEmail(), updatedUser.getStatus(), updatedUser.getLastSeen());
-        return ResponseEntity.ok(response);
+            Optional<User> userOpt = getUserById.execute(UserId.from(id));
+            if (userOpt.isEmpty()) {
+                return ResponseEntity.notFound().build();
+            }
+
+            User user = userOpt.get();
+            UserDTO response = UserDTO.forResponse(
+                user.getId().value(),
+                user.getUsername(),
+                user.getEmail(),
+                user.getStatus(),
+                user.getLastSeen()
+            );
+            return ResponseEntity.ok(response);
+
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+        try {
+            deleteUser.execute(UserId.from(id));
+            return ResponseEntity.noContent().build();
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
