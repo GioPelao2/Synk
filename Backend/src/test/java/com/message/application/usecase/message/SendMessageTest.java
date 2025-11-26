@@ -12,9 +12,9 @@ import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class SendMessageTest {
@@ -26,28 +26,36 @@ class SendMessageTest {
     private SendMessage sendMessage;
 
     @Test
-    void execute_ShouldSaveMessage_WhenValidationPasses() {
+    void execute_ShouldSaveMessage_WhenContentIsValid() {
         // Arrange
         UserId senderId = UserId.from(1L);
         UserId receiverId = UserId.from(2L);
-        String content = "Hola Mundo";
+        String content = "Hola UseCase";
 
-        // FIX: Usamos MockedStatic para interceptar la creación del ID temporal (-1L)
-        // que ocurre dentro del constructor de Message y causa el error de validación.
+        // FIX: Interceptamos la creación del ID temporal (-1L) para evitar error de validación
         try (MockedStatic<MessageId> mockedMessageId = Mockito.mockStatic(MessageId.class)) {
-
-            // Configuramos el mock estático para que devuelva un ID válido simulado
-            // cuando el código intente hacer MessageId.from(-1L)
-            MessageId validMockId = Mockito.mock(MessageId.class);
-            mockedMessageId.when(() -> MessageId.from(anyLong())).thenReturn(validMockId);
+            MessageId validId = Mockito.mock(MessageId.class);
+            mockedMessageId.when(() -> MessageId.from(anyLong())).thenReturn(validId);
 
             // Act
             sendMessage.execute(senderId, receiverId, content);
 
             // Assert
-            // Verificamos que se llamó al repositorio para guardar el mensaje.
-            // Ya no verificamos messageDomainService porque tu clase no lo usa.
             verify(messageRepository).save(any(Message.class));
         }
+    }
+
+    @Test
+    void execute_ShouldThrowException_WhenContentIsEmpty() {
+        // Arrange
+        UserId senderId = UserId.from(1L);
+        UserId receiverId = UserId.from(2L);
+
+        // Act & Assert
+        assertThrows(IllegalArgumentException.class, () -> {
+            sendMessage.execute(senderId, receiverId, "");
+        });
+
+        verify(messageRepository, never()).save(any());
     }
 }
