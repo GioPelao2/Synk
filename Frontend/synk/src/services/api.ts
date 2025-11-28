@@ -150,6 +150,40 @@ export async function registerUser(username: string, email: string, password: st
 }
 
 
+export async function searchUserByUsername(username: string) {
+    const token = localStorage.getItem('authToken');
+    
+    if (!token) {
+        console.warn("Token no encontrado para búsqueda");
+        return null;
+    }
+
+    if (!username || username.trim() === '') {
+        return null;
+    }
+
+    try {
+        const response = await fetch(`${BASE_URL}/api/users/search?username=${encodeURIComponent(username)}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        });
+
+        if (!response.ok) {
+            if (response.status === 404) {
+                return null; // Usuario no encontrado
+            }
+            throw new Error(`Error al buscar usuario: ${response.statusText}`);
+        }
+
+        const user = await response.json();
+        return user;
+    } catch (error) {
+        console.error("Error en la llamada a searchUserByUsername:", error);
+        return null;
+    }
+}
+
 
 
 
