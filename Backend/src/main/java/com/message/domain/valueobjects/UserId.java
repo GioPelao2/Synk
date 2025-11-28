@@ -5,30 +5,39 @@ import java.util.Objects;
 public final class UserId {
     private final Long value;
 
-    private UserId(Long value) {
-        if (value == null || value < 0) {
+    private UserId(Long value, boolean allowTemporary) {
+        if (value == null) {
+            throw new IllegalArgumentException("UserId cannot be null");
+        }
+
+        if (!allowTemporary && value <= 0) {
             throw new IllegalArgumentException("UserId must be a positive number");
         }
+
         this.value = value;
+    }
+
+    private UserId(Long value) {
+        this(value, false);
     }
 
     public static UserId from(Long value) {
         return new UserId(value);
     }
 
-    public Long value() {
-        return value;
+    public static UserId temporary() {
+        return new UserId(-1L, true);
     }
 
-    public static UserId newId() {
-        return new UserId(-1L); //TEMPORAL se le asigna EN base a la DB
+    public Long value() {
+        return value;
     }
 
     public Long getValue() {
         return value;
     }
 
-    public boolean isTemporary(){
+    public boolean isTemporary() {
         return value <= 0;
     }
 
@@ -50,3 +59,4 @@ public final class UserId {
         return "UserId{" + value + "}";
     }
 }
+

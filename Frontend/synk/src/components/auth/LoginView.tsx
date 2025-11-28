@@ -9,8 +9,8 @@ interface LoginViewProps {
 }
 
 const LoginView: React.FC<LoginViewProps> = ({ onSwitchToRegister }) => {
-    const [usernameOrEmail, setUsernameOrEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false); 
     const router = useRouter();
@@ -42,21 +42,22 @@ const LoginView: React.FC<LoginViewProps> = ({ onSwitchToRegister }) => {
         <form className={styles.authForm} onSubmit={handleSubmit}>
             <input
             type="text"
-            placeholder="Email o Nombre de Usuario"
+            placeholder="Nombre de Usuario" 
             className={styles.inputField}
-            value={usernameOrEmail}
-            onChange={(e) => setUsernameOrEmail(e.target.value)}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)} 
             required
+            disabled={isLoading} // Deshabilitar durante la petición
             />
 
             <input
-            type="password"
-            placeholder="Contraseña"
+            type="email" 
+            placeholder="Correo Electrónico" 
             className={styles.inputField}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)} 
             required
-            disabled={isLoading}
+            disabled={isLoading} // Deshabilitar durante la petición
             />
             {error && <p className={styles.errorMessage} style={{color: 'red', marginTop: '10px'}}>{error}</p>}
 

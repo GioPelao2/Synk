@@ -2,20 +2,17 @@ package com.message.presentation.controller;
 
 import com.message.presentation.dto.LoginRequest;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.ResponseEntity;
 
 @RestController 
-@CrossOrigin(origins = "http://localhost:3000")
 public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
         
-        // --- Verifica la Conexión ---
         System.out.println("Petición POST /login recibida.");
         System.out.println("Usuario: " + loginRequest.getUsername());
         

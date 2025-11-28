@@ -1,8 +1,9 @@
 import { error } from "console";
 
-const BASE_URL = 'http://localhost:8080';
+const BASE_URL = 'https://backend-synk.giovanny.cl';
 
 const LOGIN_URL = `${BASE_URL}/login`;
+const REGISTER_URL = `${BASE_URL}/api/users/register`;
 
 export async function loginUser(username: string, password: string) {
     try {
@@ -57,7 +58,7 @@ export async function getOnlineUsers() {
     }
 
     try{
-        const response = await fetch(`${BASE_URL}/api/users/online`, {
+        const response = await fetch(`${BASE_URL}/api/users`, {
            // headers: {
              //   'Authorization': `Bearer ${token}`,
             //},
@@ -104,5 +105,53 @@ export async function getConversationHistory(userId1: number, userId2: number) {
     } catch (error) {
         console.error("Error en la llamada a getConversationHistory", error);
         return [];
+    }    
+}
+
+// --- [ FUNCIÓN 4: registerUser ] ---
+export async function registerUser(username: string, email: string, password: string) {
+    try {
+        const response = await fetch(REGISTER_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: username, 
+                email: email,
+                password: password, // Agregado el campo password requerido
+            }),
+        });
+
+        if (!response.ok) {
+            const errorBodyText = await response.text();
+            let errorMessage = `Fallo al registrar la cuenta. Código: ${response.status} ${response.statusText}`;
+
+            try {
+                const errorData = JSON.parse(errorBodyText);
+                // El backend devuelve strings directamente en algunos casos
+                errorMessage = typeof errorData === 'string' ? errorData : (errorData.message || errorMessage);
+            } catch (e) {
+                // Si no es JSON, usa el texto plano del error
+                errorMessage = errorBodyText || errorMessage;
+            }
+            
+            throw new Error(errorMessage);
+        }
+
+        const data = await response.json(); 
+        
+        return { success: true, data };
+
+    } catch (error) {
+        console.error("Error en la llamada a registerUser:", error);
+        throw error;
     }
 }
+
+
+
+
+
+
+

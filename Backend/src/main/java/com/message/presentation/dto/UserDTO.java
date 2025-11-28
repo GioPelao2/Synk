@@ -3,7 +3,6 @@ package com.message.presentation.dto;
 import com.message.domain.enums.UserStatus;
 import java.time.LocalDateTime;
 
-//@JsonInclude(JsonInclude.Include.NON_NULL) // No incluye campos nulos en el JSON
 public class UserDTO {
 
     private Long id;
@@ -13,7 +12,6 @@ public class UserDTO {
     private UserStatus status;
     private LocalDateTime lastSeen;
 
-    // Constructor vacío para Jackson
     public UserDTO() {}
 
     // Constructor completo para responses

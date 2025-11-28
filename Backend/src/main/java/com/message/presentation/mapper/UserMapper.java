@@ -17,30 +17,39 @@ public class UserMapper {
                 jpaEntity.getEmail(),
                 jpaEntity.getStatus(),
                 jpaEntity.getLastSeen()
-                );
+        );
     }
 
     public UserEntity toJpaEntity(User user) {
         if (user == null) return null;
-        UserEntity jpaEntity = new UserEntity(
-                user.getId().value(),
-                user.getUsername(),
-                user.getEmail(),
-                user.getStatus(),
-                user.getLastSeen()
-        );
-
-        if (!user.getId().isTemporary()) {
-            jpaEntity.setId(user.getId().value());
+        
+        // Si el usuario tiene ID temporal, no lo asignes (déjalo null para que JPA lo genere)
+        if (user.getId().isTemporary()) {
+            return new UserEntity(
+                    user.getUsername(),
+                    user.getEmail(),
+                    user.getPasswordHash(),
+                    user.getStatus(),
+                    user.getLastSeen()
+            );
+        } else {
+            // Si tiene ID real, úsalo
+            return new UserEntity(
+                    user.getId().value(),
+                    user.getUsername(),
+                    user.getEmail(),
+                    user.getPasswordHash(),
+                    user.getStatus(),
+                    user.getLastSeen()
+            );
         }
-
-        return jpaEntity;
     }
+
     public void updateJpaEntity(UserEntity jpaEntity, User domain) {
         jpaEntity.setUsername(domain.getUsername());
         jpaEntity.setEmail(domain.getEmail());
         jpaEntity.setStatus(domain.getStatus());
         jpaEntity.setLastSeen(domain.getLastSeen());
+        // No actualices el password aquí, eso debe ser en un método separado por seguridad
     }
-
 }

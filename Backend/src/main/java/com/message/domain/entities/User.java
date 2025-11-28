@@ -5,16 +5,23 @@ import com.message.domain.enums.UserStatus;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-/**
- * TODO: Agregar campos como avatar, nombre completo, etc.
- */
 public class User {
     private UserId id;
-    private String username; // unico
-    private String email;    // unico
+    private String username;
+    private String email;
+    private String passwordHash;
     private UserStatus status;
     private LocalDateTime lastSeen;
 
+    public User(String username, String email, String passwordHash) {
+        this.id = UserId.temporary();
+        this.username = Objects.requireNonNull(username, "Username cannot be null");
+        this.email = Objects.requireNonNull(email, "Email cannot be null");
+        this.passwordHash = Objects.requireNonNull(passwordHash, "Password cannot be null");
+        this.status = UserStatus.OFFLINE;
+        this.lastSeen = LocalDateTime.now();
+    }
+    
     // Constructor para usuarios que ya existen en BD
     public User(UserId id, String username, String email, UserStatus status, LocalDateTime lastSeen) {
         this.id = Objects.requireNonNull(id, "UserId cannot be null");
@@ -26,16 +33,15 @@ public class User {
 
     // Constructor para usuarios nuevos (registro)
     public User(String username, String email) {
-        this.id = UserId.newId(); // ID temporal hasta que se guarde en BD
+        this.id = UserId.temporary(); // ID temporal hasta que se guarde en BD
         this.username = Objects.requireNonNull(username, "Username cannot be null");
         this.email = Objects.requireNonNull(email, "Email cannot be null");
         this.status = UserStatus.OFFLINE;
         this.lastSeen = LocalDateTime.now();
     }
 
-    /**
+    /*
      * Método para asignar ID real despues de guardar en BD
-     * similar al de Message, funciona bien
      */
     public User withId(UserId newId) {
         if (!this.id.isTemporary()) {
@@ -60,14 +66,7 @@ public class User {
         this.lastSeen = LocalDateTime.now();
     }
 
-    // Método genérico para cambiar estado ¿removible?
-    public void changeStatus(UserStatus newStatus) {
-        Objects.requireNonNull(newStatus, "UserStatus cannot be null");
-        this.status = newStatus;
-        this.lastSeen = LocalDateTime.now();
-    }
-
-    /**
+    /*
      * Lógica de negocio: cuándo un usuario puede recibir mensajes
      * TODO: Revisar si queremos permitir mensajes a usuarios OFFLINE
      */
@@ -98,6 +97,7 @@ public class User {
     public String getEmail() {return email;}
     public UserStatus getStatus() {return status;}
     public LocalDateTime getLastSeen() {return lastSeen;}
+    public String getPasswordHash() { return passwordHash; }
 
     @Override
     public boolean equals(Object object) {

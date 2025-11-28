@@ -37,6 +37,46 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    public List<User> findAll() {
+        return jpaRepository.findAll()
+                .stream()
+                .map(userMapper::toDomain)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteById(UserId id) {
+        jpaRepository.deleteById(id.getValue());
+    }
+
+    @Override
+    public Optional<User> findByUsername(String username) {
+        return jpaRepository.findByUsername(username)
+                .map(userMapper::toDomain);
+    }
+
+    @Override
+    public Optional<User> findByEmail(String email) {
+        return jpaRepository.findByEmail(email)
+                .map(userMapper::toDomain);
+    }
+
+    @Override
+    public boolean existsById(UserId id) {
+        return jpaRepository.existsById(id.getValue());
+    }
+
+    @Override
+    public boolean existsByUsername(String username) {
+        return jpaRepository.existsByUsername(username);
+    }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        return jpaRepository.existsByEmail(email);
+    }
+
+    @Override
     public List<User> findOnlineUsers() {
         return jpaRepository.findOnlineUsers()
                 .stream()
@@ -44,27 +84,25 @@ public class UserRepositoryImpl implements UserRepository {
                 .collect(Collectors.toList());
     }
 
-    // Métodos adicionales útiles
-    public Optional<User> findByUsername(String username) {
-        return jpaRepository.findByUsername(username)
-                .map(userMapper::toDomain);
-    }
-
-    public Optional<User> findByEmail(String email) {
-        return jpaRepository.findByEmail(email)
-                .map(userMapper::toDomain);
-    }
-
-    public boolean existsByUsername(String username) {
-        return jpaRepository.existsByUsername(username);
-    }
-
-    public boolean existsByEmail(String email) {
-        return jpaRepository.existsByEmail(email);
-    }
-
+    @Override
     public List<User> findAvailableUsers() {
         return jpaRepository.findAvailableUsers()
+                .stream()
+                .map(userMapper::toDomain)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<User> findOfflineUsers() {
+        return jpaRepository.findOfflineUsers()
+                .stream()
+                .map(userMapper::toDomain)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<User> findAwayUsers() {
+        return jpaRepository.findAwayUsers()
                 .stream()
                 .map(userMapper::toDomain)
                 .collect(Collectors.toList());
