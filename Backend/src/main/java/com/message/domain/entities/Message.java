@@ -1,6 +1,7 @@
 package com.message.domain.entities;
 
 import com.message.domain.enums.MessageType;
+import com.message.domain.valueobjects.ConversationId;
 import com.message.domain.valueobjects.MessageId;
 import com.message.domain.valueobjects.UserId;
 import java.time.LocalDateTime;
@@ -13,6 +14,7 @@ import java.util.Objects;
  */
 public class Message {
     private MessageId messageId;
+    private ConversationId conversationId;
     private UserId senderId;
     private UserId receiverId;
     private String content; // Validar longitud máxima del contenido
@@ -21,8 +23,9 @@ public class Message {
     private boolean isRead;
 
     // Constructor para cuando se trae mensajes desde la BD
-    public Message(MessageId messageId, UserId senderId, UserId receiverId, String content, LocalDateTime timestamp, boolean isRead) {
+    public Message(MessageId messageId, ConversationId conversationId, UserId senderId, UserId receiverId, String content, LocalDateTime timestamp, boolean isRead) {
         this.messageId = Objects.requireNonNull(messageId, "MessageId cannot be null");
+        this.conversationId = Objects.requireNonNull(conversationId, "ConversationId cannot be null");
         this.senderId = Objects.requireNonNull(senderId, "SenderId cannot be null");
         this.receiverId = Objects.requireNonNull(receiverId, "ReceiverId cannot be null");
         this.content = Objects.requireNonNull(content, "Content cannot be null");
@@ -32,8 +35,9 @@ public class Message {
     }
 
     // Constructor para mensajes nuevos (más común)
-    public Message(UserId senderId, UserId receiverId, String content) {
+    public Message(ConversationId conversationId, UserId senderId, UserId receiverId, String content) {
         this.messageId = MessageId.from(-1L); // temporal hasta que la BD le asigne el ID real
+        this.conversationId = Objects.requireNonNull(conversationId, "ConversationId cannot be null");
         this.senderId = Objects.requireNonNull(senderId, "SenderId cannot be null");
         this.receiverId = Objects.requireNonNull(receiverId, "ReceiverId cannot be null");
         this.content = Objects.requireNonNull(content, "Content cannot be null");
@@ -59,9 +63,11 @@ public class Message {
         if (!this.messageId.value().equals(-1L)) {
             throw new IllegalStateException("Message already has an ID assigned");
         }
-        return new Message(newId, this.senderId, this.receiverId, this.content, this.timestamp, this.isRead);
+        return new Message(newId, this.conversationId, this.senderId, this.receiverId, this.content, this.timestamp, this.isRead);
     }
 
+    public ConversationId getConversationId() { return conversationId; }
+    
     public void markAsRead() {
         this.isRead = true;
     }
