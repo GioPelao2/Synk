@@ -13,6 +13,7 @@ public class User {
     private UserStatus status;
     private LocalDateTime lastSeen;
 
+    // Constructor para nuevos usuarios (registro) - con password
     public User(String username, String email, String passwordHash) {
         this.id = UserId.temporary();
         this.username = Objects.requireNonNull(username, "Username cannot be null");
@@ -22,35 +23,38 @@ public class User {
         this.lastSeen = LocalDateTime.now();
     }
     
-    // Constructor para usuarios que ya existen en BD
+    // Constructor COMPLETO para usuarios desde BD (con passwordHash)
+    public User(UserId id, String username, String email, String passwordHash, 
+                UserStatus status, LocalDateTime lastSeen) {
+        this.id = Objects.requireNonNull(id, "UserId cannot be null");
+        this.username = Objects.requireNonNull(username, "Username cannot be null");
+        this.email = Objects.requireNonNull(email, "Email cannot be null");
+        this.passwordHash = Objects.requireNonNull(passwordHash, "PasswordHash cannot be null");
+        this.status = Objects.requireNonNull(status, "Status cannot be null");
+        this.lastSeen = Objects.requireNonNull(lastSeen, "LastSeen cannot be null");
+    }
+
+    // Constructor para usuarios desde BD (sin passwordHash para DTOs/vistas)
     public User(UserId id, String username, String email, UserStatus status, LocalDateTime lastSeen) {
         this.id = Objects.requireNonNull(id, "UserId cannot be null");
         this.username = Objects.requireNonNull(username, "Username cannot be null");
         this.email = Objects.requireNonNull(email, "Email cannot be null");
-        this.status = UserStatus.OFFLINE;
-        this.lastSeen = LocalDateTime.now();
-    }
-
-    // Constructor para usuarios nuevos (registro)
-    public User(String username, String email) {
-        this.id = UserId.temporary(); // ID temporal hasta que se guarde en BD
-        this.username = Objects.requireNonNull(username, "Username cannot be null");
-        this.email = Objects.requireNonNull(email, "Email cannot be null");
-        this.status = UserStatus.OFFLINE;
-        this.lastSeen = LocalDateTime.now();
+        this.passwordHash = null; // Opcional para casos donde no se necesita el hash
+        this.status = Objects.requireNonNull(status, "Status cannot be null");
+        this.lastSeen = Objects.requireNonNull(lastSeen, "LastSeen cannot be null");
     }
 
     /*
-     * Método para asignar ID real despues de guardar en BD
+     * Método para asignar ID real después de guardar en BD
      */
     public User withId(UserId newId) {
         if (!this.id.isTemporary()) {
             throw new IllegalStateException("User already has an ID assigned");
         }
-        return new User(newId, this.username, this.email, this.status, this.lastSeen);
+        return new User(newId, this.username, this.email, this.passwordHash, 
+                       this.status, this.lastSeen);
     }
 
-    // Métodos para cambiar el estado del usuario
     public void goOnline() {
         this.status = UserStatus.ONLINE;
         this.lastSeen = LocalDateTime.now();
@@ -62,24 +66,17 @@ public class User {
     }
 
     public void goAway() {
-        this.status = UserStatus.AWAY; // Cuando está inactivo pero conectado, posiblemente automatico
+        this.status = UserStatus.AWAY;
         this.lastSeen = LocalDateTime.now();
     }
 
-    /*
-     * Lógica de negocio: cuándo un usuario puede recibir mensajes
-     * TODO: Revisar si queremos permitir mensajes a usuarios OFFLINE
-     */
     public boolean canReceiveMessage(UserId senderId) {
-        //no puedes mandarte mensajes a ti mismo
         if (this.id.equals(senderId)) {
             return false;
         }
-        // Solo usuarios activos pueden recibir mensajes inmediatamente
         return this.status == UserStatus.ONLINE || this.status == UserStatus.AWAY;
     }
 
-    // Métodos de conveniencia para verificar estado
     public boolean isOnline() {
         return this.status == UserStatus.ONLINE;
     }
@@ -92,21 +89,19 @@ public class User {
         return this.status == UserStatus.OFFLINE;
     }
 
-    public UserId getId() {return id;}
-    public String getUsername() {return username;}
-    public String getEmail() {return email;}
-    public UserStatus getStatus() {return status;}
-    public LocalDateTime getLastSeen() {return lastSeen;}
+    public UserId getId() { return id; }
+    public String getUsername() { return username; }
+    public String getEmail() { return email; }
+    public UserStatus getStatus() { return status; }
+    public LocalDateTime getLastSeen() { return lastSeen; }
     public String getPasswordHash() { return passwordHash; }
 
     @Override
     public boolean equals(Object object) {
-        if (this == object)
-            return true;
-        if (object == null || getClass() != object.getClass())
-            return false;
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
         User user = (User) object;
-        return Objects.equals(id, user.id); // Usuarios son iguales si tienen el mismo ID
+        return Objects.equals(id, user.id);
     }
 
     @Override

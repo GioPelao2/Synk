@@ -6,13 +6,13 @@ public final class MessageId {
     private final Long value;
 
     private MessageId(Long value) {
-        if (value == null || value < 0) {
-            throw new IllegalArgumentException("ConversationId must be a positive number");
-        }
-        this.value = value;
+        this.value = Objects.requireNonNull(value, "MessageId value cannot be null");
     }
 
     public static MessageId from(Long value) {
+        if (value == null) {
+            throw new IllegalArgumentException("MessageId value cannot be null");
+        }
         return new MessageId(value);
     }
 
@@ -20,10 +20,14 @@ public final class MessageId {
         return value;
     }
     
+    public boolean isTemporary() {
+        return value.equals(-1L);
+    }
+    
     @Override
     public boolean equals(Object object) {
-        if (this==object) return true;
-        if (object==null || getClass() != object.getClass()) return false;
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
         MessageId messageId = (MessageId) object;
         return Objects.equals(value, messageId.value);
     }
@@ -35,8 +39,6 @@ public final class MessageId {
 
     @Override
     public String toString() {
-        return "UserId{" + value + "}";
+        return "MessageId{" + value + "}";
     }
-
-
 }

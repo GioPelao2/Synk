@@ -6,60 +6,47 @@ import com.message.domain.valueobjects.UserId;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-/**
- * Representa un mensaje inmutable entre usuarios en el dominio.
- * NOTA: La existencia de múltiples constructores es una deuda técnica a refactorizar
- * con un patrón como Builder o Factory Methods.
- */
 public class Message {
     private MessageId messageId;
     private UserId senderId;
     private UserId receiverId;
-    private String content; // Validar longitud máxima del contenido
+    private String content;
     private LocalDateTime timestamp;
     private MessageType messageType;
     private boolean isRead;
 
-    // Constructor para cuando se trae mensajes desde la BD
-    public Message(MessageId messageId, UserId senderId, UserId receiverId, String content, LocalDateTime timestamp, boolean isRead) {
+    // Constructor COMPLETO para mensajes desde la BD
+    public Message(MessageId messageId, UserId senderId, UserId receiverId, 
+                   String content, LocalDateTime timestamp, boolean isRead) {
         this.messageId = Objects.requireNonNull(messageId, "MessageId cannot be null");
         this.senderId = Objects.requireNonNull(senderId, "SenderId cannot be null");
         this.receiverId = Objects.requireNonNull(receiverId, "ReceiverId cannot be null");
         this.content = Objects.requireNonNull(content, "Content cannot be null");
         this.timestamp = Objects.requireNonNull(timestamp, "Timestamp cannot be null");
-        this.messageType = messageType.TEXT; //Arreglar?
+        this.messageType = MessageType.TEXT;
         this.isRead = isRead;
     }
 
-    // Constructor para mensajes nuevos (más común)
+    // Constructor para mensajes NUEVOS (sin guardar en BD)
     public Message(UserId senderId, UserId receiverId, String content) {
         this.messageId = MessageId.from(-1L); // temporal hasta que la BD le asigne el ID real
         this.senderId = Objects.requireNonNull(senderId, "SenderId cannot be null");
         this.receiverId = Objects.requireNonNull(receiverId, "ReceiverId cannot be null");
         this.content = Objects.requireNonNull(content, "Content cannot be null");
         this.timestamp = LocalDateTime.now();
-        this.isRead = false;
-    }
-
-    // Constructor que cree para el mapper (probablemente se puede refactorizar)
-    public Message(MessageId messageId, UserId senderId, UserId receiverId, String content) {
-        this.messageId = Objects.requireNonNull(messageId, "MessageId cannot be null");
-        this.senderId = Objects.requireNonNull(senderId, "SenderId cannot be null");
-        this.receiverId = Objects.requireNonNull(receiverId, "ReceiverId cannot be null");
-        this.content = Objects.requireNonNull(content, "Content cannot be null");
-        this.timestamp = LocalDateTime.now();
+        this.messageType = MessageType.TEXT;
         this.isRead = false;
     }
 
     /**
      * Método para asignar un ID real después de guardar en BD
-     * feo pero funciona bien
      */
     public Message withId(MessageId newId) {
-        if (!this.messageId.value().equals(-1L)) {
+        if (!this.messageId.isTemporary()) {
             throw new IllegalStateException("Message already has an ID assigned");
         }
-        return new Message(newId, this.senderId, this.receiverId, this.content, this.timestamp, this.isRead);
+        return new Message(newId, this.senderId, this.receiverId, this.content, 
+                          this.timestamp, this.isRead);
     }
 
     public void markAsRead() {
@@ -139,7 +126,7 @@ public class Message {
                 "messageId=" + messageId +
                 ", senderId=" + senderId +
                 ", receiverId=" + receiverId +
-                ", content='" + content + '\'' + // TODO: Truncar contenido muy largo en toString()
+                ", content='" + content + '\'' +
                 ", timestamp=" + timestamp +
                 ", isRead=" + isRead +
                 '}';

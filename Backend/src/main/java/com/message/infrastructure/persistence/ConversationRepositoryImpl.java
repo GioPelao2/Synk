@@ -14,22 +14,18 @@ import com.message.domain.repositories.ConversationRepository;
 import com.message.domain.valueobjects.ConversationId;
 import com.message.domain.valueobjects.UserId;
 import com.message.presentation.mapper.ConversationMapper;
-import com.message.presentation.mapper.MessageMapper;
 
 @Repository
 public class ConversationRepositoryImpl implements ConversationRepository {
 
     private final JpaConversationRepository jpaRepository;
     private final ConversationMapper conversationMapper;
-    private final MessageMapper messageMapper;
 
     @Autowired
     public ConversationRepositoryImpl(JpaConversationRepository jpaRepository,
-                                     ConversationMapper conversationMapper,
-                                     MessageMapper messageMapper) {
+                                     ConversationMapper conversationMapper) {
         this.jpaRepository = jpaRepository;
         this.conversationMapper = conversationMapper;
-        this.messageMapper = messageMapper;
     }
 
     @Override
@@ -47,7 +43,6 @@ public class ConversationRepositoryImpl implements ConversationRepository {
 
     @Override
     public Optional<Conversation> findByParticipants(UserId userId1, UserId userId2) {
-        // Intentar buscar en ambos órdenes
         Optional<ConversationEntity> result = jpaRepository.findByTwoParticipants(
             userId1.value(), userId2.value()
         );
