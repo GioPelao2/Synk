@@ -8,20 +8,9 @@ export interface User {
 
 export interface Message {
     id: number;
-    senderId: number; 
-    receiverId: number;
-    senderUsername?: string;
-    receiverUsername?: string;
+    senderUsername: string; 
+    receiverUsername: string;
     content: string; 
     timestamp: string; 
     read: boolean;
 }
-
-export interface ContactData {
-    id: number;
-    name: string;
-    status: string;
-    avatarUrl?: string;
-}
-
-export type MessageData = Message;

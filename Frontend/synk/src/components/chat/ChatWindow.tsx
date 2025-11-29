@@ -1,36 +1,16 @@
 import React from "react";
 import ChatHeader from "./ChatHeader";
+import { ContactData, MessageData } from "@/types";
 import Message from "@/components/chat/Message";
 import MessageInput from "@/components/chat/MessageInput";
 import styles from "@/styles/ChatWindow.module.css";
 
-
-interface User {
-    id: number;
-    username: string;
-    email: string;
-    status: string;
-    lastSeen: string;
-}
-
-interface MessageData {
-    id: number;
-    senderId: number;
-    receiverId: number;
-    content: string;
-    timestamp: string;
-    read: boolean;
-}
-
 interface ChatWindowProps {
-    activeContact: User | null;
+    activeContact: ContactData | null;
     messages: MessageData[];
-    onSendMessage: (content: string) => void;
-    isLoading?: boolean;
-    currentUserId: number;
 }
 
-const ChatWindow: React.FC<ChatWindowProps> = ({ activeContact, messages, onSendMessage, isLoading, currentUserId }) => {
+const ChatWindow: React.FC<ChatWindowProps> = ({ activeContact, messages }) => {
     if (!activeContact){
         return (
             <div className="placeholder">
@@ -44,29 +24,18 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ activeContact, messages, onSend
             <ChatHeader contact={activeContact} />
 
         <div className={styles.messageList}>
-                {isLoading ? (
-                    <div className={styles.loadingMessages}>
-                        <p>Cargando mensajes...</p>
-                    </div>
-                ) : messages.length === 0 ? (
-                    <div className={styles.noMessages}>
-                        <p>No hay mensajes aún. ¡Inicia la conversación!</p>
-                    </div>
-                ) : (
-                    messages.map((msg) => (
-                        <Message
-                            key={msg.id}
-                            text={msg.content}
-                            sender={msg.senderId === currentUserId ? "user" : "other"}
-                            timestamp={msg.timestamp}
-                        />
-                    ))
-                )}
-            </div>
+        {messages.map((msg) => (
+            <Message
+            key={msg.id}
+            text={msg.text}
+            sender={msg.senderId === activeContact.id ? "other" : "user"}
+            />
+        ))}
+        </div>
 
-            <MessageInput onSendMessage={onSendMessage} />
+        <MessageInput />
         </div>
     );
 }
 
-export default ChatWindow;
+export default ChatWindow
