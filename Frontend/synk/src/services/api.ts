@@ -1,281 +1,285 @@
-import { error } from "console";
-
 const BASE_URL = 'https://backend-synk.giovanny.cl';
 
 const LOGIN_URL = `${BASE_URL}/login`;
 const REGISTER_URL = `${BASE_URL}/api/users/register`;
 
+// Helper para verificar si estamos en el cliente
+const isBrowser = typeof window !== 'undefined';
+
 export async function loginUser(username: string, password: string) {
-    try {
-        const response = await fetch(LOGIN_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                username, 
-                password,
-            }),
-        });
+  try {
+    const response = await fetch(LOGIN_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username,
+        password,
+      }),
+    });
 
-        if (!response.ok) {
-            const errorBodyText = await response.text();
-            let errorMessage = `Fallo al iniciar sesión. Código: ${response.status} ${response.statusText}`;
+    if (!response.ok) {
+      const errorBodyText = await response.text();
+      let errorMessage = `Fallo al iniciar sesión. Código: ${response.status} ${response.statusText}`;
 
-            try {
-                const errorData = JSON.parse(errorBodyText);
-                errorMessage = errorData.message || errorMessage;
-            } catch (e) {
-            }
-            
-            throw new Error(errorMessage);
-        }
+      try {
+        const errorData = JSON.parse(errorBodyText);
+        errorMessage = errorData.message || errorMessage;
+      } catch (e) {
+        // Ignorar error de parse
+      }
 
-        const data = await response.json(); 
-
-        const jwtToken = data.token || data.jwt; 
-        if (!jwtToken) {
-            throw new Error("Token de autenticación no encontrado en la respuesta del backend.");
-        }
-
-        localStorage.setItem('authToken', jwtToken);
-        localStorage.setItem('currentUserId', data.userId || '1'); 
-
-        return jwtToken;
-
-    } catch (error) {
-        console.error("Error en la llamada a loginUser:", error);
-        throw error;
+      throw new Error(errorMessage);
     }
+
+    const data = await response.json();
+
+    const jwtToken = data.token || data.jwt;
+    if (!jwtToken) {
+      throw new Error("Token de autenticación no encontrado en la respuesta del backend.");
+    }
+
+    if (isBrowser) {
+      localStorage.setItem('authToken', jwtToken);
+      localStorage.setItem('currentUserId', data.userId || '1');
+    }
+
+    return jwtToken;
+
+  } catch (error) {
+    console.error("Error en la llamada a loginUser:", error);
+    throw error;
+  }
 }
 
 // obtener lista de usuarios en linea
 export async function getOnlineUsers() {
-    const token = localStorage.getItem('authToken');
-    if (!token) {
-        console.log("No hay token, la llamada a getOnlineUsers fue omitida.");
-        return []; 
+  if (!isBrowser) return [];
+
+  const token = localStorage.getItem('authToken');
+  if (!token) {
+    console.log("No hay token, la llamada a getOnlineUsers fue omitida.");
+    return [];
+  }
+
+  try {
+    const response = await fetch(`${BASE_URL}/api/users`, {
+      // headers: {
+      //     'Authorization': `Bearer ${token}`,
+      // },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error al obtener usuarios online: ${response.statusText}`);
     }
 
-    try{
-        const response = await fetch(`${BASE_URL}/api/users`, {
-           // headers: {
-             //   'Authorization': `Bearer ${token}`,
-            //},
-        });
-        
-        if (!response.ok) {
-            throw new Error(`Error al obtener usuarios online: ${response.statusText}`);
-        }
-
-        // el backend devuelve una lista<UserDTO>
-        const users = await response.json();
-        return users;
-    } catch (error) {
-        console.error("Error en la llamada a getOnlineUsers:", error);
-        // devolvemos un array vacio en caso de fallo para evitar romper la UI
-        return [];  
-    }
+    const users = await response.json();
+    return users;
+  } catch (error) {
+    console.error("Error en la llamada a getOnlineUsers:", error);
+    return [];
+  }
 }
 
 // obtener la conversación entre dos usuarios
 export async function getConversationHistory(userId1: number, userId2: number) {
-    const token = localStorage.getItem('authToken');
+  if (!isBrowser) return [];
 
-    if (!token) {
-        console.warn("Token no encontrado para conversación");
-        return [];
+  const token = localStorage.getItem('authToken');
+
+  if (!token) {
+    console.warn("Token no encontrado para conversación");
+    return [];
+  }
+
+  try {
+    const url = `${BASE_URL}/api/messages/history?userId1=${userId1}&userId2=${userId2}`;
+    const response = await fetch(url, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error al obtener conversación: ${response.statusText}`);
     }
 
-    try {
-        const url = `${BASE_URL}/api/messages/history?userId1=${userId1}&userId2=${userId2}`;
-        const response = await fetch(url, {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-            },
-        });
-
-        if (!response.ok) {
-            throw new Error(`Error al obtener conversación: ${response.statusText}`);
-        }
-
-        // el backend devuelve un List<MessageDTO>
-        const messages = await response.json();
-        return messages; 
-    } catch (error) {
-        console.error("Error en la llamada a getConversationHistory", error);
-        return [];
-    }    
+    const messages = await response.json();
+    return messages;
+  } catch (error) {
+    console.error("Error en la llamada a getConversationHistory", error);
+    return [];
+  }
 }
 
 export async function sendMessage(senderId: number, receiverId: number, content: string) {
-    const token = localStorage.getItem('authToken');
+  if (!isBrowser) {
+    throw new Error("No disponible en el servidor");
+  }
 
-    if (!token) {
-        throw new Error("Token no encontrado");
+  const token = localStorage.getItem('authToken');
+
+  if (!token) {
+    throw new Error("Token no encontrado");
+  }
+
+  try {
+    const response = await fetch(`${BASE_URL}/api/messages/send`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        senderId,
+        receiverId,
+        content
+      }),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(errorText || 'Error al enviar mensaje');
     }
 
-    try {
-        const response = await fetch(`${BASE_URL}/api/messages/send`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
-            },
-            body: JSON.stringify({
-                senderId,
-                receiverId,
-                content
-            }),
-        });
-
-        if (!response.ok) {
-            const errorText = await response.text();
-            throw new Error(errorText || 'Error al enviar mensaje');
-        }
-
-        const message = await response.json();
-        return message;
-    } catch (error) {
-        console.error("Error al enviar mensaje:", error);
-        throw error;
-    }
+    const message = await response.json();
+    return message;
+  } catch (error) {
+    console.error("Error al enviar mensaje:", error);
+    throw error;
+  }
 }
 
 // Marcar mensajes como leídos
 export async function markMessagesAsRead(userId1: number, userId2: number) {
-    const token = localStorage.getItem('authToken');
+  if (!isBrowser) return;
 
-    if (!token) {
-        console.warn("Token no encontrado");
-        return;
+  const token = localStorage.getItem('authToken');
+
+  if (!token) {
+    console.warn("Token no encontrado");
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      `${BASE_URL}/api/messages/conversation/${userId1}/${userId2}/read-all`,
+      {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      console.error("Error al marcar mensajes como leídos");
     }
-
-    try {
-        const response = await fetch(
-            `${BASE_URL}/api/messages/conversation/${userId1}/${userId2}/read-all`,
-            {
-                method: 'PUT',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
-            }
-        );
-
-        if (!response.ok) {
-            console.error("Error al marcar mensajes como leídos");
-        }
-    } catch (error) {
-        console.error("Error en markMessagesAsRead:", error);
-    }
+  } catch (error) {
+    console.error("Error en markMessagesAsRead:", error);
+  }
 }
 
 // Obtener conteo de mensajes no leídos
 export async function getUnreadMessagesCount(userId: number) {
-    const token = localStorage.getItem('authToken');
+  if (!isBrowser) return 0;
 
-    if (!token) {
-        return 0;
+  const token = localStorage.getItem('authToken');
+
+  if (!token) {
+    return 0;
+  }
+
+  try {
+    const response = await fetch(`${BASE_URL}/api/messages/unread-count/${userId}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      return 0;
     }
 
-    try {
-        const response = await fetch(`${BASE_URL}/api/messages/unread-count/${userId}`, {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-            },
-        });
-
-        if (!response.ok) {
-            return 0;
-        }
-
-        const count = await response.json();
-        return count;
-    } catch (error) {
-        console.error("Error al obtener mensajes no leídos:", error);
-        return 0;
-    }
+    const count = await response.json();
+    return count;
+  } catch (error) {
+    console.error("Error al obtener mensajes no leídos:", error);
+    return 0;
+  }
 }
 
-
-// --- [ FUNCIÓN 4: registerUser ] ---
 export async function registerUser(username: string, email: string, password: string) {
-    try {
-        const response = await fetch(REGISTER_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                username: username, 
-                email: email,
-                password: password, // Agregado el campo password requerido
-            }),
-        });
+  try {
+    const response = await fetch(REGISTER_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: username,
+        email: email,
+        password: password,
+      }),
+    });
 
-        if (!response.ok) {
-            const errorBodyText = await response.text();
-            let errorMessage = `Fallo al registrar la cuenta. Código: ${response.status} ${response.statusText}`;
+    if (!response.ok) {
+      const errorBodyText = await response.text();
+      let errorMessage = `Fallo al registrar la cuenta. Código: ${response.status} ${response.statusText}`;
 
-            try {
-                const errorData = JSON.parse(errorBodyText);
-                // El backend devuelve strings directamente en algunos casos
-                errorMessage = typeof errorData === 'string' ? errorData : (errorData.message || errorMessage);
-            } catch (e) {
-                // Si no es JSON, usa el texto plano del error
-                errorMessage = errorBodyText || errorMessage;
-            }
-            
-            throw new Error(errorMessage);
-        }
+      try {
+        const errorData = JSON.parse(errorBodyText);
+        errorMessage = typeof errorData === 'string' ? errorData : (errorData.message || errorMessage);
+      } catch (e) {
+        errorMessage = errorBodyText || errorMessage;
+      }
 
-        const data = await response.json(); 
-        
-        return { success: true, data };
-
-    } catch (error) {
-        console.error("Error en la llamada a registerUser:", error);
-        throw error;
+      throw new Error(errorMessage);
     }
-}
 
+    const data = await response.json();
+
+    return { success: true, data };
+
+  } catch (error) {
+    console.error("Error en la llamada a registerUser:", error);
+    throw error;
+  }
+}
 
 export async function searchUserByUsername(username: string) {
-    const token = localStorage.getItem('authToken');
-    
-    if (!token) {
-        console.warn("Token no encontrado para búsqueda");
+  if (!isBrowser) return null;
+
+  const token = localStorage.getItem('authToken');
+
+  if (!token) {
+    console.warn("Token no encontrado para búsqueda");
+    return null;
+  }
+
+  if (!username || username.trim() === '') {
+    return null;
+  }
+
+  try {
+    const response = await fetch(`${BASE_URL}/api/users/search?username=${encodeURIComponent(username)}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      if (response.status === 404) {
         return null;
+      }
+      throw new Error(`Error al buscar usuario: ${response.statusText}`);
     }
 
-    if (!username || username.trim() === '') {
-        return null;
-    }
-
-    try {
-        const response = await fetch(`${BASE_URL}/api/users/search?username=${encodeURIComponent(username)}`, {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-            },
-        });
-
-        if (!response.ok) {
-            if (response.status === 404) {
-                return null; // Usuario no encontrado
-            }
-            throw new Error(`Error al buscar usuario: ${response.statusText}`);
-        }
-
-        const user = await response.json();
-        return user;
-    } catch (error) {
-        console.error("Error en la llamada a searchUserByUsername:", error);
-        return null;
-    }
+    const user = await response.json();
+    return user;
+  } catch (error) {
+    console.error("Error en la llamada a searchUserByUsername:", error);
+    return null;
+  }
 }
-
-
-
-
-
-

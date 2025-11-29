@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Header from "@/components/layout/Header"
 import NavBar from "@/components/layout/NavBar";
 import Sidebar from "@/components/layout/Sidebar";
@@ -9,10 +9,10 @@ import { getOnlineUsers, getConversationHistory, markMessagesAsRead, sendMessage
 import styles from "./page.module.css";
 
 const mapUserToContactData = (user: User): ContactData => ({
-    id: user.id,
-    name: user.username, 
-    status: user.status,
-    avatarUrl: `/images/avatars/${user.id}.png`, 
+  id: user.id,
+  name: user.username,
+  status: user.status,
+  avatarUrl: `/images/avatars/${user.id}.png`,
 });
 
 export default function Home() {
@@ -21,78 +21,83 @@ export default function Home() {
   const [activeContact, setActiveContact] = useState<ContactData | null>(null);
   const [messages, setMessages] = useState<MessageData[]>([]);
   const [isLoadingMessages, setIsLoadingMessages] = useState(false);
-  
+  const [myUserId, setMyUserId] = useState<number>(1);
 
-
-  const myUserId = parseInt(localStorage.getItem('currentUserId') || '1'); 
+  // Cargar userId desde localStorage solo en el cliente
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const userId = parseInt(localStorage.getItem('currentUserId') || '1');
+      setMyUserId(userId);
+    }
+  }, []);
 
   const handleContactSelect = async (user: ContactData) => {
     setActiveContact(user);
     setIsLoadingMessages(true);
 
     try {
-            // Cargar la conversación
-            const history = await getConversationHistory(myUserId, user.id);
-            setMessages(history);
+      // Cargar la conversación
+      const history = await getConversationHistory(myUserId, user.id);
+      setMessages(history);
 
-            // Marcar mensajes como leídos
-            await markMessagesAsRead(myUserId, user.id);
-        } catch (error) {
-            console.error("Error al cargar conversación:", error);
-            setMessages([]);
-        } finally {
-            setIsLoadingMessages(false);
-        }
-    };
+      // Marcar mensajes como leídos
+      await markMessagesAsRead(myUserId, user.id);
+    } catch (error) {
+      console.error("Error al cargar conversación:", error);
+      setMessages([]);
+    } finally {
+      setIsLoadingMessages(false);
+    }
+  };
 
-    const handleSendMessage = async (content: string) => {
-        if (!activeContact || !content.trim()) {
-            return;
-        }
+  const handleSendMessage = async (content: string) => {
+    if (!activeContact || !content.trim()) {
+      return;
+    }
 
-        try {
-            const newMessage = await sendMessage(myUserId, activeContact.id, content);
-            
-            // Agregar el mensaje a la lista local
-            setMessages(prev => [...prev, newMessage]);
-        } catch (error) {
-            console.error("Error al enviar mensaje:", error);
-            alert("No se pudo enviar el mensaje");
-        }
-    };
+    try {
+      const newMessage = await sendMessage(myUserId, activeContact.id, content);
+
+      // Agregar el mensaje a la lista local
+      setMessages(prev => [...prev, newMessage]);
+    } catch (error) {
+      console.error("Error al enviar mensaje:", error);
+      alert("No se pudo enviar el mensaje");
+    }
+  };
 
   useEffect(() => {
     const loadUsers = async () => {
-      const users: User[] = await getOnlineUsers(); // Llama a http://localhost:8080/api/users/online
-      
+      const users: User[] = await getOnlineUsers();
+
       const contactUsers = users.map(mapUserToContactData);
       setOnlineUsers(contactUsers);
     };
 
-      loadUsers();
+    loadUsers();
   }, []);
 
   return (
     <div className={styles.mainContainer}>
-        <Header logoSrc={logoUrl} />
+      <Header logoSrc={logoUrl} />
 
-        <div className={styles.Columncontainer}>
-            <Sidebar />
-    
-            <NavBar
-                users={onlineUsers}
-                onContactClick={handleContactSelect}
-                activeContact={activeContact}
-            />
+      <div className={styles.Columncontainer}>
+        <Sidebar />
 
-            <ChatWindow 
-                activeContact={activeContact}
-                messages={messages}
-                onSendMessage={handleSendMessage}
-                isLoading={isLoadingMessages}
-                currentUserId={myUserId}
-            />
-        </div>
+        <NavBar
+          users={onlineUsers}
+          onContactClick={handleContactSelect}
+          activeContact={activeContact}
+        />
+
+        <ChatWindow
+          activeContact={activeContact}
+          messages={messages}
+          onSendMessage={handleSendMessage}
+          isLoading={isLoadingMessages}
+          currentUserId={myUserId}
+        />
+      </div>
     </div>
   );
 }
