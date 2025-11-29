@@ -84,33 +84,36 @@ export async function getOnlineUsers() {
 
 // obtener la conversación entre dos usuarios
 export async function getConversationHistory(userId1: number, userId2: number) {
-  if (!isBrowser) return [];
+    const token = localStorage.getItem('authToken');
 
-  const token = localStorage.getItem('authToken');
-
-  if (!token) {
-    console.warn("Token no encontrado para conversación");
-    return [];
-  }
-
-  try {
-    const url = `${BASE_URL}/api/messages/history?userId1=${userId1}&userId2=${userId2}`;
-    const response = await fetch(url, {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error(`Error al obtener conversación: ${response.statusText}`);
+    if (!token) {
+        console.warn("Token no encontrado para conversación");
+        return [];
     }
 
-    const messages = await response.json();
-    return messages;
-  } catch (error) {
-    console.error("Error en la llamada a getConversationHistory", error);
-    return [];
-  }
+    try {
+        // Usar el endpoint correcto del MessageController
+        const url = `${BASE_URL}/api/messages/conversation/${userId1}/${userId2}`;
+        const response = await fetch(url, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        });
+
+        if (!response.ok) {
+            if (response.status === 404) {
+                console.log("No hay conversación previa entre estos usuarios");
+                return []; // No hay mensajes aún
+            }
+            throw new Error(`Error al obtener conversación: ${response.statusText}`);
+        }
+
+        const messages = await response.json();
+        return messages; 
+    } catch (error) {
+        console.error("Error en getConversationHistory:", error);
+        return [];
+    }    
 }
 
 export async function sendMessage(senderId: number, receiverId: number, content: string) {

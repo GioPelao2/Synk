@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import styles from "@/styles/NavBar.module.css"
 import ChatBlock from "@/components/chat/ChatBlock";
-import { User } from "@/types";
+import { ContactData, User } from "@/types";
 
 interface NavBarProps {
-    users: User[];
-    onContactClick: (user: User) => void;
-    activeContact: User | null;
+    users: ContactData[];
+    onContactClick: (user: ContactData) => void;
+    activeContact: ContactData | null;
 }
 
 const NavBar: React.FC<NavBarProps> = ({ users, onContactClick, activeContact }) => {
     const [searchQuery, setSearchQuery] = useState('');
   
     const filteredUsers = users.filter(user => 
-        user.username.toLowerCase().includes(searchQuery.toLowerCase())
+        user.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     return (
@@ -42,7 +42,7 @@ const NavBar: React.FC<NavBarProps> = ({ users, onContactClick, activeContact })
                             className={activeContact?.id === user.id ? styles.activeChat : ''}
                         >
                             <ChatBlock
-                                name={user.username}
+                                name={user.name}
                                 lastMessage={user.status}
                                 time="9:45 AM"
                                 unreadCount={2}
