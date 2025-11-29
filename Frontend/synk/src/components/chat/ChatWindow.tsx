@@ -8,9 +8,12 @@ import styles from "@/styles/ChatWindow.module.css";
 interface ChatWindowProps {
     activeContact: ContactData | null;
     messages: MessageData[];
+    onSendMessage: (content: string) => void;
+    isLoading?: boolean;
+    currentUserId: number;
 }
 
-const ChatWindow: React.FC<ChatWindowProps> = ({ activeContact, messages }) => {
+const ChatWindow: React.FC<ChatWindowProps> = ({ activeContact, messages, onSendMessage, isLoading, currentUserId }) => {
     if (!activeContact){
         return (
             <div className="placeholder">
@@ -27,13 +30,14 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ activeContact, messages }) => {
         {messages.map((msg) => (
             <Message
             key={msg.id}
-            text={msg.text}
-            sender={msg.senderId === activeContact.id ? "other" : "user"}
+            text={msg.content}
+            sender={msg.senderId === currentUserId ? "other" : "user"}
+            timestamp={msg.timestamp}
             />
         ))}
         </div>
 
-        <MessageInput />
+        <MessageInput onSendMessage={onSendMessage} />
         </div>
     );
 }
