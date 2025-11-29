@@ -12,14 +12,15 @@ import com.message.domain.valueobjects.ConversationId;
 import com.message.domain.valueobjects.UserId;
 import com.message.infrastructure.persistence.ConversationEntity;
 import com.message.infrastructure.persistence.MessageEntity;
+import com.message.infrastructure.mapper.MessageEntityMapper;
 
 @Component
 public class ConversationMapper {
 
-    private final MessageMapper messageMapper;
+    private final MessageEntityMapper messageMapper;
 
     @Autowired
-    public ConversationMapper(MessageMapper messageMapper) {
+    public ConversationMapper(MessageEntityMapper messageMapper) {
         this.messageMapper = messageMapper;
     }
 
@@ -57,7 +58,7 @@ public class ConversationMapper {
                 .collect(Collectors.toList());
 
         List<MessageEntity> messageEntities = conversation.getMessages().stream()
-                .map(messageMapper::toJpaEntity)
+                .map(messageMapper::toEntity)
                 .collect(Collectors.toList());
 
         ConversationEntity entity = new ConversationEntity(
