@@ -12,7 +12,7 @@ const mapUserToContactData = (user: User): ContactData => ({
   id: user.id,
   name: user.username,
   status: user.status,
-  avatarUrl: `/images/avatars/${user.id}.png`,
+  avatarUrl: "/images/avatars/default.png",
 });
 
 export default function Home() {
