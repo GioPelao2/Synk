@@ -17,6 +17,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @RestController
 @RequestMapping("/api/messages")
 public class MessageController {
@@ -28,6 +31,7 @@ public class MessageController {
     private final GetConversationHistory getConversationHistory;
     private final GetUnreadMessagesCount getUnreadMessagesCount;
     private final GetUserById getUserById;
+    private static final Logger logger = LoggerFactory.getLogger(MessageController.class);
 
     @Autowired
     public MessageController(
@@ -50,6 +54,7 @@ public class MessageController {
     @PostMapping("/send")
     public ResponseEntity<?> sendMessage(@RequestBody MessageDTO messageDTO) {
         try {
+            logger.debug("Solicitud de envío de mensaje de {} a {}", messageDTO.getSenderId(), messageDTO.getReceiverId());
             if (messageDTO.getContent() == null || messageDTO.getContent().trim().isEmpty()) {
                 return ResponseEntity.badRequest().body("Content cannot be empty");
             }
@@ -70,15 +75,23 @@ public class MessageController {
 
             Message savedMessage = sendMessage.execute(senderId, receiverId, messageDTO.getContent());
 
+            logger.info("Mensaje enviado con éxito. ID: {} | De: {} | A: {}", savedMessage.getMessageId().value(), senderId.value(), receiverId.value());
+
             MessageDTO response = new MessageDTO(savedMessage);
             
             response.setSenderUsername(sender.get().getUsername());
             response.setReceiverUsername(receiver.get().getUsername());
+            
+            
 
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
 
         } catch (IllegalArgumentException e) {
+            logger.error("Error de validación al enviar mensaje: {}", e.getMessage());
             return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            logger.error("Error inesperado en sendMessage", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 

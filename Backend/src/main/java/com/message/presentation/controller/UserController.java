@@ -15,6 +15,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
@@ -30,6 +33,7 @@ public class UserController {
     private final CheckUsernameAvailability checkUsernameAvailability;
     private final CheckEmailAvailability checkEmailAvailability;
     private final DeleteUser deleteUser;
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     private final UserMapper userMapper;
 
@@ -129,6 +133,7 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody UserDTO userDTO) {
+        logger.info("Iniciando registro de nuevo usuario: {}", userDTO.getUsername());
         try {
             if (userDTO.getUsername() == null || userDTO.getUsername().trim().isEmpty()) {
                 return ResponseEntity.badRequest().body("Username is required");
@@ -146,6 +151,8 @@ public class UserController {
                 userDTO.getPassword()
             );
 
+            logger.info("Usuario registrado exitosamente. ID: {}", savedUser.getId().value());
+
             UserDTO response = UserDTO.forResponse(
                 savedUser.getId().value(),
                 savedUser.getUsername(),
@@ -156,6 +163,7 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
 
         } catch (IllegalArgumentException e) {
+            logger.warn("Fallo en registro de usuario (datos inválidos o duplicados): {}", e.getMessage());
             return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
         }
     }
