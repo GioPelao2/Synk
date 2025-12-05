@@ -23,7 +23,7 @@ export default function LoginPage(){
                     />
                 );
             case 'Success':
-                return <SuccessView onRedirectToHome={() => window.location.href = '/'} />;
+                return <SuccessView onRedirectToLogin={() => window.location.href = 'login'} />;
                 default:
                     return <LoginView onSwitchToRegister={() => setCurrentView('Register')} />;   
         }
