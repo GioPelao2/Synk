@@ -10,7 +10,7 @@ interface LoginViewProps {
 
 const LoginView: React.FC<LoginViewProps> = ({ onSwitchToRegister }) => {
     const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false); 
     const router = useRouter();
@@ -21,10 +21,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onSwitchToRegister }) => {
         setIsLoading(true);
 
     try {
-            const USER_TO_TEST = 'admin'; 
-            const PASS_TO_TEST = '1234';  
-
-           const token = await loginUser(USER_TO_TEST, PASS_TO_TEST);
+           const token = await loginUser(username, password);
             
             if (token) {
                 console.log("Login Exitoso. Token JWT recibido y almacenado.");
@@ -32,7 +29,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onSwitchToRegister }) => {
             }
         } catch (err: any) {
             console.error("Fallo de autenticación:", err.message);
-            setError('Error al iniciar sesión. Por favor, verifica el servidor y las credenciales (admin/1234).');
+            setError('Credenciales inválidas. Por favor, intenta nuevamente.');
         } finally {
             setIsLoading(false);
         }
@@ -51,11 +48,11 @@ const LoginView: React.FC<LoginViewProps> = ({ onSwitchToRegister }) => {
             />
 
             <input
-            type="email" 
-            placeholder="Correo Electrónico" 
+            type="password" 
+            placeholder="Contraseña" 
             className={styles.inputField}
-            value={email}
-            onChange={(e) => setEmail(e.target.value)} 
+            value={password}
+            onChange={(e) => setPassword(e.target.value)} 
             required
             disabled={isLoading} // Deshabilitar durante la petición
             />
