@@ -20,13 +20,20 @@ export default function Message({ text, sender, timestamp}: MessageProps) {
     };
 
     return (
-        <div className={`${styles.messageBubble} ${messageClass}`}>
-            <p>{text}</p>
-            {timestamp && (
+        <div style={{ 
+            display: 'flex', 
+            justifyContent: sender === "user" ? 'flex-end' : 'flex-start',
+            marginBottom: '8px',
+            width: '100%'
+        }}>
+            <div className={`${styles.messageBubble} ${messageClass}`}>
+                <p>{text}</p>
+                {timestamp && (
                     <span className={styles.timestamp}>
                         {formatTime(timestamp)}
                     </span>
                 )}
             </div>
-        );
-    }
+        </div>
+    );
+}
